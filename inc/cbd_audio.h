@@ -8,6 +8,7 @@
 typedef enum s_sounds {
 	SND_WALK_SOLID,
 	SND_WALK_GRASS,
+	SND_TV_NOISE,
 	SND_MENU,
 	SND_SEARCH,
 	SND_MUSIC,

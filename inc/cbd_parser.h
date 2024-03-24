@@ -78,6 +78,7 @@ typedef struct s_entity {
 	float				speed;
 	float				audio_timer;
 	mlx_texture_t		*texture;
+	float				distance;
 	enum e_entity_state	state;
 	struct s_entity		*next;
 }	t_entity;

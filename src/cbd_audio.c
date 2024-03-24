@@ -102,6 +102,10 @@ t_audio	*cbd_init_audio(void)
 	game_audio->sound[SND_WALL1] = init_sound(game_audio->engine, "./data/audio/wall_destruction/wall2.mp3");
 	game_audio->sound[SND_WALL2] = init_sound(game_audio->engine, "./data/audio/wall_destruction/wall3.mp3");
 	game_audio->sound[SND_WALL3] = init_sound(game_audio->engine, "./data/audio/wall_destruction/wall1.mp3");
+
+	game_audio->sound[SND_TV_NOISE] = init_sound(game_audio->engine, "./data/audio/tv_noise.mp3");
+
+
 	game_audio->is_initialized = true;
 	return (game_audio);
 }

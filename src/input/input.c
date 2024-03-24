@@ -12,20 +12,20 @@ void	destroy_wall(t_map *mapdata, t_player *player, t_audio *audio, t_render *re
 	{
 		render->b_timer = true;
 		mapdata->cbd_map[(int)(player->pos.y + player->dir.y)][(int)(player->pos.x + player->dir.x)] = '-';
-		play_sound(audio, SND_WALL1, 0.5f);
+		play_sound(audio, SND_WALL1, 0.25f);
 		render->fx.b_timer = true;
 	}
 	else if (target == '-')
 	{
 		render->b_timer = true;
 		mapdata->cbd_map[(int)(player->pos.y + player->dir.y)][(int)(player->pos.x + player->dir.x)] = '_';
-		play_sound(audio, SND_WALL2, 0.5f);
+		play_sound(audio, SND_WALL2, 0.25f);
 		render->fx.b_timer = true;
 	}
 	else if (target == '_')
 	{
 		mapdata->cbd_map[(int)(player->pos.y + player->dir.y)][(int)(player->pos.x + player->dir.x)] = '0';
-		play_sound(audio, SND_WALL3, 0.5f);
+		play_sound(audio, SND_WALL3, 0.25f);
 		render->b_timer = true;
 		render->fx.b_timer = true;
 	}
@@ -122,6 +122,7 @@ void	cbd_input(mlx_key_data_t keydata, void *param)
 	{
 		stop_sound(audio, SND_MENU);
 		loop_sound(audio, SND_MUSIC, false);
+		loop_sound(audio, SND_TV_NOISE, false);
 	}
 	if (cbd->playerdata.state == PLAYER_RUNNING && cbd->menudata->state == OFF)
 	{

@@ -1,5 +1,6 @@
 #include <cub3d.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 void	render_entities(t_render *render, t_entity *entities, t_player *player)
 {
@@ -15,6 +16,7 @@ void	render_entities(t_render *render, t_entity *entities, t_player *player)
 	while (ent)
 	{
 		entity_distance = ((player->pos.x - ent->pos.x) * (player->pos.x - ent->pos.x) + (player->pos.y - ent->pos.y) * (player->pos.y - ent->pos.y));
+		ent->distance = entity_distance / 412;
 
 		//translate entity position to relative to camera
 		double ent_x = ent->pos.x - player->pos.x;
