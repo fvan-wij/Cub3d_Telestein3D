@@ -73,7 +73,7 @@ void	reset_player_animation(t_render *render, mlx_t *mlx)
 
 void	peek_map(t_inventory *inv, t_render *render, mlx_image_t *img, mlx_t *mlx)
 {
-	inv->weapons[inv->equipped].img->instances[0].x = (cos(render->headbob) * 2) + (WIDTH>>1) - (inv->weapons[inv->equipped].img->width>>1);
+	inv->wpns[inv->equipped].img->instances[0].x = (cos(render->headbob) * 2) + (WIDTH>>1) - (inv->wpns[inv->equipped].img->width>>1);
 	if (render->map_peak < -99)
 		render->map_peak = -99;
 	if (img->enabled && render->map_peak > -100)

@@ -5,7 +5,7 @@
 #include <stdio.h>
 void deal_damage(t_app *cbd)
 {
-	if (cbd->playerdata.inv->weapons[WPN_CHAINSAW].ammo <= 0)
+	if (cbd->playerdata.inv->wpns[WPN_CHAINSAW].ammo <= 0)
 		return ;
 	if ((mlx_is_key_down(cbd->mlx, MLX_KEY_SPACE) || mlx_is_mouse_down(cbd->mlx, MLX_MOUSE_BUTTON_LEFT))&& cbd->playerdata.inv->equipped == WPN_CHAINSAW)
 	{
@@ -14,13 +14,13 @@ void deal_damage(t_app *cbd)
 			cbd->render.fx.crt = true;
 			cbd->render.fx.blood = true;
 			cbd->render.fx.splat = true;
-			cbd->playerdata.inv->weapons[WPN_CHAINSAW].ammo-=cbd->mlx->delta_time * 10;
+			cbd->playerdata.inv->wpns[WPN_CHAINSAW].ammo-=cbd->mlx->delta_time * 10;
 			cbd->playerdata.target_entity->health-=cbd->mlx->delta_time;
 			if (cbd->playerdata.target_entity->enabled)
 				dismember_enemy(cbd);
 		}
 		else
-			cbd->playerdata.inv->weapons[WPN_CHAINSAW].ammo-=cbd->mlx->delta_time * 10;
+			cbd->playerdata.inv->wpns[WPN_CHAINSAW].ammo-=cbd->mlx->delta_time * 10;
 	}
 }
 

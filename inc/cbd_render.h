@@ -76,12 +76,14 @@ typedef	struct s_particle {
 //Animations
 #define MAX_FRAMES 3
 
-typedef struct s_animation_frame {
+typedef struct s_animation_frame
+{
 	mlx_image_t		*img;
 	uint8_t			duration;
-} t_animation_frame;
+}	t_animation_frame;
 
-typedef struct s_animation {
+typedef struct s_animation
+{
 	t_animation_frame		frames[MAX_FRAMES];
 	uint8_t					n_frames;
 	size_t					current_frame;
@@ -95,45 +97,52 @@ typedef struct s_animation {
 	float					current_x;
 }	t_animation;
 
-typedef struct s_weapon {
-	t_animation	*fire_animation;
+typedef struct s_weapon
+{
+	t_animation	*use_anim;
 	mlx_image_t	*img;
 	uint8_t		type;
 	bool		in_inventory;
 	float		ammo;
-} t_weapon;
+}	t_weapon;
 
-typedef struct s_inventory {
-	enum e_inv_items {
+typedef struct s_inventory
+{
+	enum	e_inv_items
+	{
 		WPN_FIST,
 		WPN_CHAINSAW,
 		WPN_MAP,
 		WPN_SIZE,
-	} t_inv_items;
-	t_weapon	weapons[WPN_SIZE];
+	}			t_inv_items;
+	t_weapon	wpns[WPN_SIZE];
 	uint8_t		equipped;
 }	t_inventory;
 
 //HUD data
-typedef struct s_hud {
-	enum e_hud_items {
+typedef struct s_hud
+{
+	enum	e_hud_items
+	{
 		HUD_MAP,
 		HUD_OVERLAY,
 		HUD_CRT,
 		HUD_PULSE,
 		HUD_SIZE,
-	} t_hud_items;
+	}			t_hud_items;
 	mlx_image_t	*img[HUD_SIZE];
-} t_hud;
+}	t_hud;
 
 //Sprite
-typedef struct s_sprite {
+typedef struct s_sprite
+{
 	t_vec2d			pos;
 	mlx_texture_t	*tex;
-} t_sprite;
+}	t_sprite;
 
 
-typedef struct t_fx {
+typedef struct t_fx
+{
 	float	splat_timer;
 	float	blood_timer;
 	float	crt_timer;
@@ -142,9 +151,10 @@ typedef struct t_fx {
 	bool	splat;
 	bool	blood;
 	bool	pulse;
-} t_fx;
+}	t_fx;
 
-typedef struct s_render {
+typedef struct s_render
+{
 	mlx_image_t	*img;
 	mlx_image_t	*sprite_img;
 	mlx_image_t	*po_head;
@@ -162,24 +172,25 @@ typedef struct s_render {
 	float		timer;
 	bool		b_timer;
 	float		headache_timer;
-} t_render;
+}	t_render;
 
-typedef struct s_wall t_wall;
+typedef struct s_wall	t_wall;
 
 typedef void (*wall_strip_func)(t_render render, int x, t_wall *walls, float wall_dist);
 
-typedef struct s_wall {
+typedef struct s_wall
+{
 	wall_strip_func jump_table[256];
 	char			*w_path[256];
 	mlx_texture_t	*w_tex[256];
 	uint8_t			n_w;
 	uint8_t			n_cw;
-} t_wall;
+}	t_wall;
 
-typedef struct s_map t_map;
-typedef struct s_player t_player;
-typedef struct s_entity t_entity;
-typedef struct s_app t_app;
+typedef struct s_map	t_map;
+typedef struct s_player	t_player;
+typedef struct s_entity	t_entity;
+typedef struct s_app	t_app;
 
 //				Color
 int32_t			color(uint8_t r, uint8_t g, uint8_t b);

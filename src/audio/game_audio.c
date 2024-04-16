@@ -77,26 +77,26 @@ static void update_walking_sounds(t_audio *audio, enum e_player_state state)
 static void	handle_chainsaw_sound(t_audio *audio, t_inventory *inv)
 {
 	// Play saw sound
-	if (inv->weapons[inv->equipped].fire_animation->loop && inv->equipped == WPN_CHAINSAW)
+	if (inv->wpns[inv->equipped].use_anim->loop && inv->equipped == WPN_CHAINSAW)
 		loop_sound(audio, SND_SAW, false);
 	else
 		stop_sound(audio, SND_SAW);
 
 	//Play idle sound
-	if (inv->equipped == WPN_CHAINSAW && inv->weapons[WPN_CHAINSAW].fire_animation->loop == false && inv->weapons[WPN_CHAINSAW].ammo > 0)
+	if (inv->equipped == WPN_CHAINSAW && inv->wpns[WPN_CHAINSAW].use_anim->loop == false && inv->wpns[WPN_CHAINSAW].ammo > 0)
 		loop_sound(audio, SND_SAW_IDLE, false);
 	else
 		stop_sound(audio, SND_SAW_IDLE);
 
 	// Play no fuel sound
-	if (ma_sound_is_playing(audio->sound[SND_SAW]) && inv->weapons[WPN_CHAINSAW].ammo <= 0)
+	if (ma_sound_is_playing(audio->sound[SND_SAW]) && inv->wpns[WPN_CHAINSAW].ammo <= 0)
 	{
 		stop_sound(audio, SND_SAW);
 		play_sound(audio, SND_NO_FUEL2, 0.75f, 1.0f);
 	}
 
 	// Play no sound at all
-	if (inv->weapons[WPN_CHAINSAW].ammo <= 0)
+	if (inv->wpns[WPN_CHAINSAW].ammo <= 0)
 	{
 		stop_sound(audio, SND_SAW);
 		stop_sound(audio, SND_SAW_IDLE);

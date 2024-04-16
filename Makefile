@@ -18,6 +18,10 @@ SRCS	:= \
 		   entity.c				\
 		   player.c				\
 		   init/cbd_init.c		\
+		   init/init_inventory.c\
+		   init/init_menu.c		\
+		   init/init_weapons.c	\
+		   init/init_particles.c\
 		   audio/game_audio.c	\
 		   audio/menu_audio.c	\
 		   audio/cbd_audio.c 	\

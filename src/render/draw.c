@@ -16,18 +16,18 @@ void	draw_hud(t_hud *hud, t_inventory *inv)
 
 void	draw_equipped_weapon(t_inventory *inv)
 {
-	if (inv->equipped == WPN_FIST && inv->weapons[WPN_FIST].fire_animation->loop != true)
-		inv->weapons[WPN_FIST].img->enabled = true;
+	if (inv->equipped == WPN_FIST && inv->wpns[WPN_FIST].use_anim->loop != true)
+		inv->wpns[WPN_FIST].img->enabled = true;
 	else
-		inv->weapons[WPN_FIST].img->enabled = false;
-	if (inv->equipped == WPN_CHAINSAW && inv->weapons[WPN_CHAINSAW].fire_animation->loop != true)
-		inv->weapons[WPN_CHAINSAW].img->enabled = true;
+		inv->wpns[WPN_FIST].img->enabled = false;
+	if (inv->equipped == WPN_CHAINSAW && inv->wpns[WPN_CHAINSAW].use_anim->loop != true)
+		inv->wpns[WPN_CHAINSAW].img->enabled = true;
 	else
-		inv->weapons[WPN_CHAINSAW].img->enabled = false;
-	if (inv->equipped == WPN_MAP && inv->weapons[WPN_CHAINSAW].fire_animation->loop != true)
-		inv->weapons[WPN_MAP].img->enabled = true;
+		inv->wpns[WPN_CHAINSAW].img->enabled = false;
+	if (inv->equipped == WPN_MAP && inv->wpns[WPN_CHAINSAW].use_anim->loop != true)
+		inv->wpns[WPN_MAP].img->enabled = true;
 	else
-		inv->weapons[WPN_MAP].img->enabled = false;
+		inv->wpns[WPN_MAP].img->enabled = false;
 }
 
 void	draw_background(mlx_image_t *img, int32_t color, int peek)
@@ -115,7 +115,7 @@ void	draw_map(char **map, t_hud *hud, int width, int height)
 t_rgba	get_texture_pixel(mlx_texture_t *tex, double x, double y)
 {
 	t_rgba	color;
- 
+
 	color = get_color_from_tex(tex, x * tex->width, y * tex->height);
 	return (color);
 }

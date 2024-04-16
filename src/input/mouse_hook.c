@@ -19,13 +19,13 @@ void	mouse_hook(mouse_key_t button, action_t action, modifier_key_t mods, void* 
 				play_sound(audio, SND_PUNCH, 0.5f, 1.0f);
 				destroy_wall(cbd->mapdata, &cbd->playerdata, cbd->audio);
 			}
-			if (cbd->playerdata.inv->equipped == WPN_CHAINSAW && cbd->playerdata.inv->weapons[WPN_CHAINSAW].ammo <= 0)
+			if (cbd->playerdata.inv->equipped == WPN_CHAINSAW && cbd->playerdata.inv->wpns[WPN_CHAINSAW].ammo <= 0)
 				play_sound(audio, SND_NO_FUEL, 1.0f, 1.0f);
-			cbd->playerdata.inv->weapons[cbd->playerdata.inv->equipped].fire_animation->loop = true;
+			cbd->playerdata.inv->wpns[cbd->playerdata.inv->equipped].use_anim->loop = true;
 		}
 		if (action == MLX_RELEASE && cbd->playerdata.inv->equipped == WPN_CHAINSAW)
 		{
-			cbd->playerdata.inv->weapons[WPN_CHAINSAW].fire_animation->loop = false;
+			cbd->playerdata.inv->wpns[WPN_CHAINSAW].use_anim->loop = false;
 			stop_sound(audio, SND_SAW);
 		}
 	}
