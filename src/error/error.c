@@ -1,33 +1,46 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   error.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: dritsema <dritsema@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/04/16 15:23:37 by dritsema      #+#    #+#                 */
+/*   Updated: 2024/04/16 15:29:07 by dritsema      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <libft.h>
 #include <cbd_error.h>
 #include <unistd.h>
 
-static const char* g_error[ERR_SIZE + 1] =
+int	cbd_error(e_err err_msg)
 {
+	const char	*g_error[ERR_SIZE + 1] = \
+	{
 	[INVALID_ARGC] = "Cub3d Error: invalid amount of arguments",
-	[INVALID_EXTENSION] = "Cub3d Error: invalid file extension. Program only accepts .cub files",
+	[INVALID_EXTENSION] = \
+	"Cub3d Error: invalid file extension. Program only accepts .cub files",
 	[ERR_OPEN] = "Cub3d Error: could not open file",
 	[ERR_ALLOC] = "Cub3d Error: error allocating memory",
 	[ERR_INVALID_MAP] = "Cub3d Error: map is invalid",
 	[ERR_INVALID_WALL] = "Cub3d Error: map is invalid (open wall detected)",
-	[ERR_INVALID_START] = "Cub3d Error: start position is invalid", 
+	[ERR_INVALID_START] = "Cub3d Error: start position is invalid",
 	[ERR_FILE_INEXISTS] = "Cub3d Error: texture does not exist",
-	[ERR_TEX_SIZE] = "Cub3d Error: texture must be 64x64", 
+	[ERR_TEX_SIZE] = "Cub3d Error: texture must be 64x64",
 	[ERR_LOAD_MAP] = "Cub3d Error: could not load map (map select)",
 	[ERR_UNKNOWN_ELEM] = "Cub3d Error: unknown element present in .cub file",
 	[ERR_MAPCONTENT_SEQUENCE] = "Cub3d Error: map content should be last",
 	[ERR_SIZE] = "n/a",
-};
+	};
 
-int	cbd_error(e_err err_msg) 
-{
 	ft_putstr_fd_nl(g_error[err_msg], STDERR_FILENO);
 	return (err_msg);
 }
 
 bool	extension_is_valid(char *file)
 {
-	int len;
+	int	len;
 
 	if (!file)
 		return (false);
