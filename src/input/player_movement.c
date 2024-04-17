@@ -63,12 +63,8 @@ void	move_player(t_app *cbd)
 
 	move_speed = cbd->mlx->delta_time * 1.5;
 	potential_pos = cbd->playerdata.pos;
-
-	//Shift multiplier
 	if (cbd->playerdata.state == PLAYER_RUNNING)
 		move_speed *= 1.35;
-
-	//Player movement input polling
 	if (mlx_is_key_down(cbd->mlx, MLX_KEY_UP) || mlx_is_key_down(cbd->mlx, MLX_KEY_W))
 		potential_pos = move_forward(cbd, move_speed, cbd->mapdata->cbd_map);
 	if (mlx_is_key_down(cbd->mlx, MLX_KEY_DOWN) || mlx_is_key_down(cbd->mlx, MLX_KEY_S))
@@ -79,14 +75,10 @@ void	move_player(t_app *cbd)
 		potential_pos = strafe_player(cbd, move_speed, 1);
 	else
 		reset_player_animation(&cbd->render, cbd->mlx);
-
-	//Player rotation
 	if (mlx_is_key_down(cbd->mlx, MLX_KEY_RIGHT) && cbd->playerdata.pos.x <= cbd->mapdata->width)
 		rotate_player(&cbd->playerdata, cbd->particles, cbd->mlx->delta_time * 3.5);
 	if (mlx_is_key_down(cbd->mlx, MLX_KEY_LEFT) && cbd->playerdata.pos.x >= 0)
 		rotate_player(&cbd->playerdata, cbd->particles, -cbd->mlx->delta_time * 3.5);
-
-	//Resolve movement
 	peek_map(cbd->playerdata.inv, &cbd->render, cbd->render.hud->img[HUD_MAP], cbd->mlx);
 	cbd->playerdata.pos = potential_pos;
 	cbd->render.y_offset += (sin(cbd->render.headbob) * 10) + cbd->render.map_peak;

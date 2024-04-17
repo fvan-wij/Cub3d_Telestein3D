@@ -93,7 +93,7 @@ void	cbd_input(mlx_key_data_t keydata, void *param);
 void	cursor_hook(double xpos, double ypos, void* param);
 void	mouse_input(t_app *cbd);
 void	mouse_hook(mouse_key_t button, action_t action, modifier_key_t mods, void* param);
-void	destroy_wall(t_map *mapdata, t_player *player, t_audio *audio);
+void	destroy_wall(t_map *mapdata, const t_player *player, t_audio *audio);
 void	reset_inventory(t_inventory *inv);
 
 // Beheading
@@ -112,6 +112,9 @@ void 	deal_damage(t_app *cbd);
 void	attack_player(t_entity *ent, t_player *playerdata, t_fx *fx);
 void	update_player(t_player *playerdata, t_app *cbd);
 void	escape_player(t_vec2d pos, t_vec2d dir, t_app *cbd);
+
+//		Input.c
+void	game_input(mlx_key_data_t keydata, t_app *cbd, t_audio *audio);
 
 //		Init
 mlx_image_t *cbd_init_texture_img(mlx_t *mlx, char *path);

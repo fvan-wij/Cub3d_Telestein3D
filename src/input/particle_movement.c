@@ -7,7 +7,7 @@
 
 void	move_particles(t_particle *particles, float x, float y)
 {
-	int i;
+	size_t	i;
 
 	i = 0;
 	while (i < N_PARTICLES)
@@ -20,10 +20,10 @@ void	move_particles(t_particle *particles, float x, float y)
 
 void	rotate_particles(t_particle *particles, float dir)
 {
-	int i;
+	size_t	i;
 
 	i = 0;
-	dir *=4;
+	dir *= 4;
 	while (i < N_PARTICLES)
 	{
 		particles[i].p.x += dir;
@@ -33,10 +33,13 @@ void	rotate_particles(t_particle *particles, float dir)
 
 void	resolve_particles(t_particle *particles, int8_t dir)
 {
-	int i = 0;
+	size_t	i;
+	t_vec2d	rand_pos;
+
+	i = 0;
 	while (i < N_PARTICLES)
 	{
-		if (particles[i].p.x < (WIDTH>>1))
+		if (particles[i].p.x < (WIDTH >> 1))
 			particles[i].dir.x = -1.0;
 		else
 			particles[i].dir.x = 1.0;
@@ -46,8 +49,10 @@ void	resolve_particles(t_particle *particles, int8_t dir)
 		particles[i].p.x += particles[i].dir.x * 5;
 		if (particles[i].size.x < 0 || particles[i].size.y < 0)
 		{
+			rand_pos.x = (float) rand() / (float)RAND_MAX * WIDTH;
+			rand_pos.y = (float) rand() / (float)RAND_MAX * HEIGHT;
 			particles[i].size = particles[i].reset;
-			particles[i].p = vec_assign((float) rand() / (float)RAND_MAX * WIDTH, (float) rand() / (float)RAND_MAX * HEIGHT);
+			particles[i].p = vec_assign(rand_pos.x, rand_pos.y);
 		}
 		i++;
 	}
