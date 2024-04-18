@@ -34,6 +34,8 @@ SRCS	:= \
 		   menu/menu_navigation.c\
 		   menu/menu_setters.c	\
 		   menu/menu_loadmap.c	\
+		   menu/menu_toggle.c	\
+		   menu/menu_preview.c	\
 		   raycaster/raycaster.c\
 		   vec/vec.c			\
 		   render/draw.c		\
