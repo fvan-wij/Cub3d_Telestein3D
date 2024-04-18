@@ -6,11 +6,12 @@
 
 t_vec2d	move_forward(t_app *cbd, float speed, char **map)
 {
-	t_vec2d potential_pos;
+	t_vec2d	potential_pos;
 
 	potential_pos.x = cbd->playerdata.pos.x + cbd->playerdata.dir.x * speed;
 	potential_pos.y = cbd->playerdata.pos.y + cbd->playerdata.dir.y * speed;
-	potential_pos = resolve_collision(map, cbd->playerdata.pos, cbd->playerdata.dir, potential_pos);
+	potential_pos = resolve_collision(map, cbd->playerdata.pos,
+			cbd->playerdata.dir, potential_pos);
 	resolve_particles(cbd->particles, -3);
 	headbob(&cbd->render.headbob, speed * 7);
 	return (potential_pos);
@@ -18,11 +19,12 @@ t_vec2d	move_forward(t_app *cbd, float speed, char **map)
 
 t_vec2d	move_backwards(t_app *cbd, float speed, char **map)
 {
-	t_vec2d potential_pos;
+	t_vec2d	potential_pos;
 
 	potential_pos.x = cbd->playerdata.pos.x - cbd->playerdata.dir.x * speed;
 	potential_pos.y = cbd->playerdata.pos.y - cbd->playerdata.dir.y * speed;
-	potential_pos = resolve_collision(map, cbd->playerdata.pos, cbd->playerdata.dir, potential_pos);
+	potential_pos = resolve_collision(map, cbd->playerdata.pos,
+			cbd->playerdata.dir, potential_pos);
 	resolve_particles(cbd->particles, 3);
 	headbob(&cbd->render.headbob, speed * 7);
 	return (potential_pos);
@@ -35,10 +37,10 @@ void	rotate_player(t_player *playerdata, t_particle *particles, float angle)
 	playerdata->plane = vec_rotate(playerdata->plane, angle);
 }
 
-t_vec2d strafe_player(t_app *cbd, float speed, int8_t direction)
+t_vec2d	strafe_player(t_app *cbd, float speed, int8_t direction)
 {
 	t_vec2d	potential_pos;
-	t_vec2d dir;
+	t_vec2d	dir;
 
 	if (direction == -1)
 	{
@@ -52,22 +54,23 @@ t_vec2d strafe_player(t_app *cbd, float speed, int8_t direction)
 	}
 	potential_pos.x = cbd->playerdata.pos.x + dir.x * speed;
 	potential_pos.y = cbd->playerdata.pos.y + dir.y * speed;
-	potential_pos = resolve_collision(cbd->mapdata->cbd_map, cbd->playerdata.pos, cbd->playerdata.dir, potential_pos);
+	potential_pos = resolve_collision(cbd->mapdata->cbd_map,
+			cbd->playerdata.pos, cbd->playerdata.dir, potential_pos);
 	return (potential_pos);
 }
 
-void	move_player(t_app *cbd)
+void	move_player(t_app *cbd, float move_speed)
 {
 	t_vec2d	potential_pos;
-	float 	move_speed;
 
-	move_speed = cbd->mlx->delta_time * 1.5;
 	potential_pos = cbd->playerdata.pos;
 	if (cbd->playerdata.state == PLAYER_RUNNING)
 		move_speed *= 1.35;
-	if (mlx_is_key_down(cbd->mlx, MLX_KEY_UP) || mlx_is_key_down(cbd->mlx, MLX_KEY_W))
+	if (mlx_is_key_down(cbd->mlx, MLX_KEY_UP)
+		|| mlx_is_key_down(cbd->mlx, MLX_KEY_W))
 		potential_pos = move_forward(cbd, move_speed, cbd->mapdata->cbd_map);
-	if (mlx_is_key_down(cbd->mlx, MLX_KEY_DOWN) || mlx_is_key_down(cbd->mlx, MLX_KEY_S))
+	if (mlx_is_key_down(cbd->mlx, MLX_KEY_DOWN)
+		|| mlx_is_key_down(cbd->mlx, MLX_KEY_S))
 		potential_pos = move_backwards(cbd, move_speed, cbd->mapdata->cbd_map);
 	if (mlx_is_key_down(cbd->mlx, MLX_KEY_A))
 		potential_pos = strafe_player(cbd, move_speed, -1);
@@ -75,11 +78,12 @@ void	move_player(t_app *cbd)
 		potential_pos = strafe_player(cbd, move_speed, 1);
 	else
 		reset_player_animation(&cbd->render, cbd->mlx);
-	if (mlx_is_key_down(cbd->mlx, MLX_KEY_RIGHT) && cbd->playerdata.pos.x <= cbd->mapdata->width)
-		rotate_player(&cbd->playerdata, cbd->particles, cbd->mlx->delta_time * 3.5);
-	if (mlx_is_key_down(cbd->mlx, MLX_KEY_LEFT) && cbd->playerdata.pos.x >= 0)
-		rotate_player(&cbd->playerdata, cbd->particles, -cbd->mlx->delta_time * 3.5);
-	peek_map(cbd->playerdata.inv, &cbd->render, cbd->render.hud->img[HUD_MAP], cbd->mlx);
+	if (mlx_is_key_down(cbd->mlx, MLX_KEY_RIGHT)
+		&& cbd->playerdata.pos.x <= cbd->mapdata->width)
+		rotate_player(&cbd->playerdata, cbd->particles, move_speed * 2);
+	if (mlx_is_key_down(cbd->mlx, MLX_KEY_LEFT)
+		&& cbd->playerdata.pos.x >= 0)
+		rotate_player(&cbd->playerdata, cbd->particles, -move_speed * 2);
+	update_headbob_animation(cbd);
 	cbd->playerdata.pos = potential_pos;
-	cbd->render.y_offset += (sin(cbd->render.headbob) * 10) + cbd->render.map_peak;
 }

@@ -100,7 +100,7 @@ void	reset_inventory(t_inventory *inv);
 void	behead(t_app *cbd);
 
 //		Interaction / movement
-void	move_player(t_app *cbd);
+void	move_player(t_app *cbd, float move_speed);
 void	change_map(t_app *cbd);
 void	rotate_player(t_player *playerdata, t_particle *particles, float angle);
 
@@ -112,6 +112,7 @@ void 	deal_damage(t_app *cbd);
 void	attack_player(t_entity *ent, t_player *playerdata, t_fx *fx);
 void	update_player(t_player *playerdata, t_app *cbd);
 void	escape_player(t_vec2d pos, t_vec2d dir, t_app *cbd);
+void	update_headbob_animation(t_app *cbd);
 
 //		Input.c
 void	game_input(mlx_key_data_t keydata, t_app *cbd, t_audio *audio);
