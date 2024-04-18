@@ -159,7 +159,7 @@ t_entity *append_entity(t_entity *entities, char *line, uint8_t type)
 	}
 }
 
-t_map *initialize_jump_table(t_map *mapdata)
+t_map	*initialize_jump_table(t_map *mapdata)
 {
 	size_t		i;
 

@@ -12,8 +12,8 @@
 */
 char	*get_texpath(char *temp)
 {
-	char *path;
-	char *dup;
+	char	*path;
+	char	*dup;
 
 	path = ft_strchr(temp, '.');
 	if (!path)
@@ -37,14 +37,15 @@ char	*get_texpath(char *temp)
 */
 t_rgba	get_col(char *temp)
 {
-	t_rgba color;
+	t_rgba	color;
+	char	**colors;
 
 	color.color = 0;
-	char **colors = ft_split(temp, ',');
+	colors = ft_split(temp, ',');
 	if (!colors)
 	{
 		cbd_error(ERR_ALLOC);
-		return color;
+		return (color);
 	}
 	if (ft_arrlen(colors) == 3)
 	{
@@ -58,7 +59,8 @@ t_rgba	get_col(char *temp)
 }
 
 /*
-** Checks if the path to the texture exists and returns an array of NO, SO, WE, EA textures
+** Checks if the path to the texture exists 
+** and returns an array of NO, SO, WE, EA textures
 **	
 ** Needs:
 **	tex_path (array of texture paths)

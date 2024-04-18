@@ -236,11 +236,14 @@ bool	validate_map_data(t_map *mapdata, t_valid *is)
 	mapdata->cbd_map = get_map(mapdata);
 	if (!mapdata->cbd_map)
 		return (cbd_error(ERR_ALLOC), ft_del_2d(mapdata->raw_data), false);
-	if (mapdata->is_bonus && !wall_is_valid_bonus(mapdata, mapdata->start_pos.y, mapdata->start_pos.x))
-		return (cbd_error(ERR_INVALID_WALL), ft_del_2d(mapdata->raw_data), false);
-	else if (!wall_is_valid(mapdata, mapdata->start_pos.y, mapdata->start_pos.x))
-		return (cbd_error(ERR_INVALID_WALL), ft_del_2d(mapdata->raw_data), false);
-	// if (!tex_size_is_valid(mapdata))
-	// 	return (cbd_error(ERR_TEX_SIZE), ft_del_2d(mapdata->raw_data), false);
+	if (mapdata->is_bonus
+		&& !wall_is_valid_bonus(mapdata,
+			mapdata->start_pos.y, mapdata->start_pos.x))
+		return (cbd_error(ERR_INVALID_WALL),
+			ft_del_2d(mapdata->raw_data), false);
+	else if (!wall_is_valid(mapdata, mapdata->start_pos.y,
+			mapdata->start_pos.x))
+		return (cbd_error(ERR_INVALID_WALL),
+			ft_del_2d(mapdata->raw_data), false);
 	return (true);
 }
