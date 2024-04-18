@@ -80,7 +80,7 @@ void	set_select_cursor_positions(t_menu *menu);
 void	set_map_preview_positions(t_menu *menu);
 
 //Menu Navigation
-size_t	move_cursor(mlx_image_t *cursor, int cur_item, int max, t_vec2i *positions, int dir);
+size_t	move_cursor(mlx_image_t *cursor, int cur_item, t_vec2i *positions, int dir);
 void	move_cursor_main_menu(t_menu *menu, int dir);
 void	move_cursor_select_menu(t_menu *menu, int dir);
 void	menu_move_cursor(t_menu *menu, int dir);
@@ -90,5 +90,12 @@ void	menu_escape(t_menu *menu);
 
 //Preview img
 void	display_preview(t_menu *menu, t_map *mapdata);
+
+//		menu_toggle.c
+void	enable_main_menu(t_menu *menu);
+void	enable_map_select_menu(t_menu *menu);
+void	disable_main_menu(t_menu *menu);
+void	enable_game_over_screen(t_menu *menu);
+void	enable_game_won_screen(t_menu *menu);
 
 #endif

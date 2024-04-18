@@ -77,7 +77,7 @@ void	app_input(mlx_key_data_t keydata, t_app *cbd, t_audio *audio)
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 	{
 		play_sound(audio, SND_TICK, 1.0f, 1.0f);
-		menu_escape(cbd->menudata);
+		set_menu_state(cbd->menudata, MAIN);
 		mlx_set_cursor_mode(cbd->mlx, MLX_MOUSE_NORMAL);
 		mlx_set_mouse_pos(cbd->mlx, cbd->mlx->width / 2, cbd->mlx->height / 2);
 		cbd->render.img->instances[0].enabled = false;
