@@ -19,8 +19,10 @@ SRCS	:= \
 		   player.c				\
 		   init/cbd_init.c		\
 		   audio/game_audio.c	\
+		   audio/init_audio.c	\
 		   audio/menu_audio.c	\
 		   audio/cbd_audio.c 	\
+		   audio/play_cues.c	\
 		   audio/miniaudio.c 	\
 		   parser/parser.c 		\
 		   parser/init.c 		\
@@ -47,6 +49,7 @@ SRCS	:= \
 		   utility/cleanup.c	\
 		   input/input.c		\
 		   input/combat.c		\
+		   input/game_input.c	\
 		   input/player_movement.c		\
 		   input/player_animation.c		\
 		   input/particle_movement.c		\

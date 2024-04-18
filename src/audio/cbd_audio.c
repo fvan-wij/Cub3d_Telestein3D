@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <libft.h>
 
-void	play_sound(t_audio *audio, uint8_t type, float volume, float pitch)
+void	play_sound(const t_audio *audio, uint8_t type, float volume, float pitch)
 {
 	ma_sound_seek_to_pcm_frame(audio->sound[type], 0);
 	ma_sound_set_pitch(audio->sound[type], pitch);
@@ -10,7 +10,7 @@ void	play_sound(t_audio *audio, uint8_t type, float volume, float pitch)
 	ma_sound_start(audio->sound[type]);
 }
 
-static void	alternate_pitch(t_audio *audio, uint8_t type)
+static void	alternate_pitch(const t_audio *audio, uint8_t type)
 {
 	static float	timer;
 	static int		alternate;
@@ -29,7 +29,7 @@ static void	alternate_pitch(t_audio *audio, uint8_t type)
 		alternate = 0;
 }
 
-void	loop_sound(t_audio *audio, uint8_t type, bool alternate)
+void	loop_sound(const t_audio *audio, uint8_t type, bool alternate)
 {
 	ma_bool32	is_looping;
 
@@ -42,13 +42,13 @@ void	loop_sound(t_audio *audio, uint8_t type, bool alternate)
 	ma_sound_start(audio->sound[type]);
 }
 
-void	stop_sound(t_audio *audio, uint8_t type)
+void	stop_sound(const t_audio *audio, uint8_t type)
 {
 	ma_sound_stop(audio->sound[type]);
 	ma_sound_seek_to_pcm_frame(audio->sound[type], 0);
 }
 
-void	reset_sounds(t_audio *audio)
+void	reset_sounds(const t_audio *audio)
 {
 	size_t	i;
 

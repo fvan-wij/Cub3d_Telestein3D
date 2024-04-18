@@ -27,7 +27,7 @@ static void	loop_game(t_app *cbd, t_audio *audio)
 	mouse_input(cbd);
 	update_player(&cbd->playerdata, cbd);
 	escape_player(cbd->playerdata.pos, cbd->playerdata.dir, cbd);
-	move_player(cbd);
+	move_player(cbd, cbd->mlx->delta_time * 1.5f);
 	update_entities(cbd);
 	move_entities(cbd->mapdata->entities, cbd);
 	deal_damage(cbd);
