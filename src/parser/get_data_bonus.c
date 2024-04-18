@@ -159,6 +159,25 @@ t_entity *append_entity(t_entity *entities, char *line, uint8_t type)
 	}
 }
 
+t_map *initialize_jump_table(t_map *mapdata)
+{
+	size_t		i;
+
+	// i loops over the characters inside of the path jump table, if any of the characters (indexes) have a path string, load the corresponding texture and put it in the same index in the wall texture jump table
+	i = 0;
+	while (i < 255)
+	{
+		if (mapdata->walls.w_path[(unsigned char)i])
+		{
+			mapdata->walls.w_tex[(unsigned char)i] = mlx_load_png(mapdata->walls.w_path[(unsigned char)i]);
+			if (!mapdata->walls.w_tex[(unsigned char)i])
+				return (NULL);
+		}
+		i++;
+	}
+	return (mapdata);
+}
+
 /*
 ** Reads the map, stores the given line in a node, returns linked list of all the elements
 ** Steps:
@@ -169,7 +188,6 @@ t_map	*get_map_data_bonus(int fd, char *line)
 {
 	uint8_t		type;
 	t_map		*mapdata;
-	size_t		i;
 
 	mapdata = alloc_map_bonus();
 	if (!mapdata)
@@ -194,17 +212,6 @@ t_map	*get_map_data_bonus(int fd, char *line)
 		free(line);
 		line = get_next_line(fd);
 	}
-	// i loops over the characters inside of the path jump table, if any of the characters (indexes) have a path string, load the corresponding texture and put it in the same index in the wall texture jump table
-	i = 0;
-	while (i < 255)
-	{
-		if (mapdata->walls.w_path[(unsigned char)i])
-		{
-			mapdata->walls.w_tex[(unsigned char)i] = mlx_load_png(mapdata->walls.w_path[(unsigned char)i]);
-			if (!mapdata->walls.w_tex[(unsigned char)i])
-				return (NULL);
-		}
-		i++;
-	}
+	mapdata = initialize_jump_table(mapdata);
 	return (mapdata);
 }

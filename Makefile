@@ -26,7 +26,8 @@ SRCS	:= \
 		   parser/init.c 		\
 		   parser/get_data.c 	\
 		   parser/get_data_bonus.c\
-		   parser/bools.c		\
+		   parser/bools_cub.c	\
+		   parser/bools_map.c	\
 		   parser/getters.c		\
 		   parser/validate_data.c \
 		   menu/menu_navigation.c\
