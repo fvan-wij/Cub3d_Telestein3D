@@ -30,6 +30,7 @@ SRCS	:= \
 		   parser/bools_map.c	\
 		   parser/getters.c		\
 		   parser/validate_data.c \
+		   parser/bools_validate.c\
 		   menu/menu_navigation.c\
 		   menu/menu_setters.c	\
 		   menu/menu_loadmap.c	\

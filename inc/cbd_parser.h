@@ -136,6 +136,13 @@ bool	is_wall_bonus(char c);
 bool	is_bonus(int fd);
 bool	tex_exists(char *path);
 
+//		bools_validate.c
+bool	wall_is_valid(t_map *mapdata, int i, int j);
+bool	wall_is_valid_bonus(t_map *mapdata, int i, int j);
+bool	is_duplicate(t_valid *is, t_map *mapdata);
+bool	is_player(char c, t_map *mapdata, t_valid *is);
+bool	start_is_valid(t_map *mapdata, t_valid *is);
+
 //				Getters.c
 char			*get_texpath(char *temp);
 t_rgba			get_col(char *temp);
