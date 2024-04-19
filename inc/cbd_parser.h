@@ -136,6 +136,7 @@ bool	is_wall(char c);
 bool	is_wall_bonus(char c);
 bool	is_bonus(int fd);
 bool	tex_exists(char *path);
+bool	is_mapcontent(char *line);
 
 //		bools_validate.c
 bool	wall_is_valid(t_map *mapdata, int i, int j);
