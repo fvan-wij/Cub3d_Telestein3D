@@ -1,5 +1,5 @@
-#include <cbd_parser.h>
 #include <cbd_error.h>
+#include <cbd_parser.h>
 #include <cub3d.h>
 #include <stdlib.h>
 

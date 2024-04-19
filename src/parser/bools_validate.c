@@ -1,10 +1,10 @@
-#include <cbd_parser.h>
 #include <cbd_error.h>
-#include <libft.h>
+#include <cbd_parser.h>
 #include <cub3d.h>
+#include <libft.h>
 #include <stdbool.h>
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 /*
 ** Recursive funcction that checks if there are open walls (floodfill)
@@ -18,22 +18,27 @@
 bool	wall_is_valid(t_map *mapdata, int i, int j)
 {
 	bool		err;
-	const int 	lenW = ft_strlen(mapdata->raw_data[i]);
-	const int 	lenH = ft_arrlen(mapdata->raw_data);
+	const int	lw = ft_strlen(mapdata->raw_data[i]);
+	const int	lh = ft_arrlen(mapdata->raw_data);
 
 	err = true;
-	if ((i < 0 || j < 0 || i >= lenH - 1 || j >= lenW - 1))
+	if ((i < 0 || j < 0 || i >= lh - 1 || j >= lw - 1))
 		return (false);
-	if ((i == 0 || j == 0 || i == (lenH - 1) || j == (lenW - 1)) && !is_wall(mapdata->raw_data[i][j]))
+	if ((i == 0 || j == 0 || i == (lh - 1) || j == (lw - 1))
+		&& !is_wall(mapdata->raw_data[i][j]))
 		return (false);
 	mapdata->raw_data[i][j] = FILL;
-	if (err && (i + 1) <= (lenH - 1) && !is_wall(mapdata->raw_data[i + 1][j]) && mapdata->raw_data[i + 1][j] != FILL)
+	if (err && (i + 1) <= (lh - 1) && !is_wall(mapdata->raw_data[i + 1][j])
+		&& mapdata->raw_data[i + 1][j] != FILL)
 		err = wall_is_valid(mapdata, i + 1, j);
-	if (err && (j + 1) <= (lenW - 1) && !is_wall(mapdata->raw_data[i][j + 1]) && mapdata->raw_data[i][j + 1] != FILL)
+	if (err && (j + 1) <= (lw - 1) && !is_wall(mapdata->raw_data[i][j + 1])
+		&& mapdata->raw_data[i][j + 1] != FILL)
 		err = wall_is_valid(mapdata, i, j + 1);
-	if (err && (i - 1) >= 0 && !is_wall(mapdata->raw_data[i - 1][j]) && mapdata->raw_data[i - 1][j] != FILL)
+	if (err && (i - 1) >= 0 && !is_wall(mapdata->raw_data[i - 1][j])
+		&& mapdata->raw_data[i - 1][j] != FILL)
 		err = wall_is_valid(mapdata, i - 1, j);
-	if (err && (j - 1) >= 0 && !is_wall(mapdata->raw_data[i][j - 1]) && mapdata->raw_data[i][j - 1] != FILL)
+	if (err && (j - 1) >= 0 && !is_wall(mapdata->raw_data[i][j - 1])
+		&& mapdata->raw_data[i][j - 1] != FILL)
 		err = wall_is_valid(mapdata, i, j - 1);
 	return (err);
 }
@@ -49,25 +54,28 @@ bool	wall_is_valid(t_map *mapdata, int i, int j)
 */
 bool	wall_is_valid_bonus(t_map *mapdata, int i, int j)
 {
-	const int 	lenW = mapdata->width;
-	const int 	lenH = mapdata->height;
+	const int	lw = mapdata->width;
+	const int	lh = mapdata->height;
 	bool		err;
 
 	err = true;
-	if ((i < 0 || j < 0 || i >= lenH - 1 || j >= lenW - 1))
+	if ((i < 0 || j < 0 || i >= lh - 1 || j >= lw - 1))
 		return (false);
-	if ((i == 0 || j == 0 || i == (lenH - 1) || j == (lenW - 1))
+	if ((i == 0 || j == 0 || i == (lh - 1) || j == (lw - 1))
 		&& !is_wall_bonus(mapdata->raw_data[i][j]))
 		return (false);
 	mapdata->raw_data[i][j] = FILL;
-	if (err && (i + 1) <= (lenH - 1)
-		&& !is_wall_bonus(mapdata->raw_data[i + 1][j]) && mapdata->raw_data[i + 1][j] != FILL)
+	if (err && (i + 1) <= (lh - 1) && !is_wall_bonus(mapdata->raw_data[i
+			+ 1][j]) && mapdata->raw_data[i + 1][j] != FILL)
 		err = wall_is_valid(mapdata, i + 1, j);
-	if (err && (j + 1) <= (lenW - 1) && !is_wall_bonus(mapdata->raw_data[i][j + 1]) && mapdata->raw_data[i][j + 1] != FILL)
+	if (err && (j + 1) <= (lw - 1) && !is_wall_bonus(mapdata->raw_data[i][j
+			+ 1]) && mapdata->raw_data[i][j + 1] != FILL)
 		err = wall_is_valid(mapdata, i, j + 1);
-	if (err && (i - 1) >= 0 && !is_wall_bonus(mapdata->raw_data[i - 1][j]) && mapdata->raw_data[i - 1][j] != FILL)
+	if (err && (i - 1) >= 0 && !is_wall_bonus(mapdata->raw_data[i - 1][j])
+		&& mapdata->raw_data[i - 1][j] != FILL)
 		err = wall_is_valid(mapdata, i - 1, j);
-	if (err && (j - 1) >= 0 && !is_wall_bonus(mapdata->raw_data[i][j - 1]) && mapdata->raw_data[i][j - 1] != FILL)
+	if (err && (j - 1) >= 0 && !is_wall_bonus(mapdata->raw_data[i][j - 1])
+		&& mapdata->raw_data[i][j - 1] != FILL)
 		err = wall_is_valid(mapdata, i, j - 1);
 	return (err);
 }
@@ -93,8 +101,8 @@ bool	is_duplicate(t_valid *is, t_map *mapdata)
 			count++;
 		i++;
 	}
-	if (count >= 1 && (mapdata->start_pos.x != -1
-			|| mapdata->start_pos.y != -1))
+	if (count >= 1 && (mapdata->start_pos.x != -1 || mapdata->start_pos.y !=
+			-1))
 		return (true);
 	return (false);
 }
@@ -158,7 +166,7 @@ bool	start_is_valid(t_map *mapdata, t_valid *is)
 			else if (is_player(mapdata->raw_data[i][j], mapdata, is)
 				&& is_duplicate(is, mapdata))
 				return (false);
-			if (j > (size_t) mapdata->width)
+			if (j > (size_t)mapdata->width)
 				mapdata->width = j;
 			j++;
 		}

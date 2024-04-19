@@ -1,6 +1,6 @@
 NAME	:= cub3d
-# CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast
-CFLAGS	:= -Wextra -Wall -Wunreachable-code -O2
+CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -O2
+# CFLAGS	:= -Wextra -Wall -Wunreachable-code -O2
 LIBMLX	:= ./lib/MLX42
 LIBFT	:= ./lib/libft
 MAUDIO	:= ./lib/miniaudio
@@ -29,6 +29,7 @@ SRCS	:= \
 		   parser/bools_cub.c	\
 		   parser/bools_map.c	\
 		   parser/getters.c		\
+		   parser/append_entity.c\
 		   parser/validate_data.c \
 		   parser/bools_validate.c\
 		   menu/menu_navigation.c\

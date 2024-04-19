@@ -1,10 +1,10 @@
-#include <cbd_parser.h>
 #include <cbd_error.h>
+#include <cbd_parser.h>
 #include <stdlib.h>
 
 /*
 ** Reads the given line and returns the path to a texture
-**	
+**
 ** Needs:
 **	a line of the .cub file
 ** Returns:
@@ -29,11 +29,11 @@ char	*get_texpath(char *temp)
 
 /*
 ** Reads the given line and returns the color values
-**	
+**
 ** Needs:
 **	a line of the .cub file
 ** Returns:
-**	t_rgba color values	
+**	t_rgba color values
 */
 t_rgba	get_col(char *temp)
 {
@@ -49,22 +49,22 @@ t_rgba	get_col(char *temp)
 	}
 	if (ft_arrlen(colors) == 3)
 	{
-		color.r = (uint8_t) ft_atoi(colors[0]);
-		color.g = (uint8_t) ft_atoi(colors[1]);
-		color.b = (uint8_t) ft_atoi(colors[2]);
-		color.a = (uint8_t) 255;
+		color.r = (uint8_t)ft_atoi(colors[0]);
+		color.g = (uint8_t)ft_atoi(colors[1]);
+		color.b = (uint8_t)ft_atoi(colors[2]);
+		color.a = (uint8_t)255;
 		ft_del_2d(colors);
 	}
 	return (color);
 }
 
 /*
-** Checks if the path to the texture exists 
+** Checks if the path to the texture exists
 ** and returns an array of NO, SO, WE, EA textures
-**	
+**
 ** Needs:
 **	tex_path (array of texture paths)
-** 		
+**
 ** Returns:
 **	mlx_texture_t **textures
 */

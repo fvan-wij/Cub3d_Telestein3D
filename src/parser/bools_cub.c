@@ -1,7 +1,7 @@
-#include <cbd_parser.h>
 #include <cbd_error.h>
-#include <unistd.h>
+#include <cbd_parser.h>
 #include <fcntl.h>
+#include <unistd.h>
 
 /*
 ** Checks if given line is a NO, SO, EA, WE texture
@@ -104,10 +104,10 @@ bool	is_bonus(int fd)
 
 /*
 ** Opens texture and checks if texture exists
-**	
+**
 ** Needs:
 **	path
-** 		
+**
 ** Returns:
 **	true/false
 */
