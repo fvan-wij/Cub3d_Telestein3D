@@ -6,21 +6,23 @@
 /*   By: dritsema <dritsema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/16 20:49:33 by dritsema      #+#    #+#                 */
-/*   Updated: 2024/04/16 20:59:51 by dritsema      ########   odam.nl         */
+/*   Updated: 2024/04/22 16:46:11 by dritsema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
+#include <stdlib.h>
 
 bool	load_frame(mlx_t *mlx, t_animation_frame *frame, char *path)
 {
 	frame->img = cbd_init_texture_img(mlx, path);
 	if (!frame->img)
 		return (false);
-	mlx_image_to_window(mlx, frame->img, \
-	(WIDTH / 2) - (frame->img->width / 2), \
-	HEIGHT - frame->img->height - 100);
+	mlx_image_to_window(mlx, frame->img,
+		(WIDTH / 2) - (frame->img->width / 2),
+		(HEIGHT - frame->img->height) + 100);
 	frame->img->enabled = false;
+	frame->img->instances->z = 11;
 	frame->duration = 2;
 	return (true);
 }
@@ -87,18 +89,20 @@ bool	init_weapons_b(mlx_t *mlx, t_inventory *inv)
 	mlx_image_to_window(mlx, inv->wpns[WPN_MAP].img, \
 	(WIDTH >> 2), (HEIGHT >> 3));
 	mlx_image_to_window(mlx, inv->wpns[WPN_FIST].img, \
-	(WIDTH >> 1) - (inv->wpns[WPN_FIST].img->width / 2), \
-	HEIGHT - (inv->wpns[WPN_FIST].img->height >> 1));
+	(WIDTH / 2) - (inv->wpns[WPN_FIST].img->width / 2), \
+	HEIGHT - (inv->wpns[WPN_FIST].img->height) + 200);
 	mlx_image_to_window(mlx, inv->wpns[WPN_CHAINSAW].img, \
 	(WIDTH >> 1) - (inv->wpns[WPN_CHAINSAW].img->width / 2), \
 	HEIGHT - (inv->wpns[WPN_CHAINSAW].img->height * 0.8));
 	inv->wpns[WPN_MAP].img->enabled = false;
 	inv->wpns[WPN_FIST].img->enabled = false;
 	inv->wpns[WPN_CHAINSAW].img->enabled = false;
+	inv->wpns[WPN_FIST].img->instances->z = 11;
+	inv->wpns[WPN_CHAINSAW].img->instances->z = 11;
 	return (true);
 }
 
-bool	init_weapons_a(mlx_t *mlx, t_inventory *inv)
+bool	init_weapons(mlx_t *mlx, t_inventory *inv)
 {
 	t_weapon	*wpns;
 

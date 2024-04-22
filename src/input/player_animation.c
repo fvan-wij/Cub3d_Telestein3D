@@ -69,7 +69,7 @@ void	peek_map(t_inventory *inv, t_render *render,
 {
 	t_weapon	*weapon;
 
-	weapon = &inv->weapons[inv->equipped];
+	weapon = &inv->wpns[inv->equipped];
 	weapon->img->instances[0].x = (cos(render->headbob) * 2)
 		+ (WIDTH >> 1) - (weapon->img->width >> 1);
 	if (render->map_peak < -99)

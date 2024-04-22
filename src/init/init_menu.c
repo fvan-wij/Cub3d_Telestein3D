@@ -6,13 +6,13 @@
 /*   By: dritsema <dritsema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/16 19:14:26 by dritsema      #+#    #+#                 */
-/*   Updated: 2024/04/16 21:08:01 by dritsema      ########   odam.nl         */
+/*   Updated: 2024/04/22 15:45:54 by dritsema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-bool	load_menu_images(mlx_t *mlx, t_map *map, t_menu	*menu)
+bool	load_menu_images(mlx_t *mlx, t_menu	*menu)
 {
 	menu->main_menu.bg = cbd_init_texture_img(mlx, "./data/menu/menu_main.png");
 	menu->main_menu.cursor = cbd_init_texture_img
@@ -22,8 +22,8 @@ bool	load_menu_images(mlx_t *mlx, t_map *map, t_menu	*menu)
 	menu->game_over.bg = cbd_init_texture_img(mlx, "./data/menu/game_over.png");
 	menu->game_won.bg = cbd_init_texture_img(mlx, "./data/menu/game_won.png");
 	menu->select_menu.preview_img = cbd_init_texture_img
-		(mlx, "./data/textures/map_preview.png");
-	mlx_image_to_window(mlx, menu->main_menu.preview_img, 0, 0);
+		(mlx, "./data/menu/map_preview.png");
+	mlx_image_to_window(mlx, menu->select_menu.preview_img, 0, 0);
 	mlx_image_to_window(mlx, menu->main_menu.bg, 0, 0);
 	mlx_image_to_window(mlx, menu->select_menu.bg, 0, 0);
 	mlx_image_to_window(mlx, menu->game_over.bg, 0, 0);
@@ -40,7 +40,7 @@ t_menu	*cbd_init_menu(mlx_t *mlx, t_map *map)
 	menu = ft_calloc(1, sizeof(t_menu));
 	if (!menu)
 		return (NULL);
-	if (!load_menu_images(mlx, map, menu))
+	if (!load_menu_images(mlx, menu))
 		return (NULL);
 	menu->select_menu.cursor = menu->main_menu.cursor;
 	menu->game_over.cursor = menu->main_menu.cursor;
