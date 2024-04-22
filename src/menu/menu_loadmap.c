@@ -8,7 +8,7 @@
 
 t_map	*load_map(t_map *curr_map, uint8_t	map_id)
 {
-	t_map *new_map;
+	t_map	*new_map;
 
 	cleanup_map(curr_map);
 	curr_map = NULL;
@@ -39,10 +39,9 @@ void	reset_inventory(t_inventory *inv)
 
 void	respawn(t_app *cbd)
 {
-	t_audio		*audio;
-	t_entity	*curr;
+	const t_audio	*audio = cbd->audio;
+	t_entity		*curr;
 
-	audio = cbd->audio;
 	if (cbd->checkpoint)
 	{
 		cbd->playerdata.pos = vec_assign(13.5, 2.5);
@@ -59,7 +58,8 @@ void	respawn(t_app *cbd)
 		curr = cbd->mapdata->entities;
 		while (curr->next != NULL)
 		{
-			if (curr->type == ENTITY_ITEM && ft_strncmp(curr->name, "chainsaw", 8) != 0)
+			if (curr->type == ENTITY_ITEM
+				&& ft_strncmp(curr->name, "chainsaw", 8) != 0)
 				curr->enabled = true;
 			curr = curr->next;
 		}
@@ -74,7 +74,8 @@ void	change_map(t_app *cbd)
 	audio->trigger1 = NULL;
 	audio->tv = NULL;
 	audio->enemy = NULL;
-	cbd->mapdata = load_map(cbd->mapdata, cbd->menudata->select_menu.current_item);
+	cbd->mapdata = load_map(cbd->mapdata,
+			cbd->menudata->select_menu.current_item);
 	if (!cbd->mapdata)
 	{
 		cbd_error(ERR_LOAD_MAP);

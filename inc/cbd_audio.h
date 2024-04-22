@@ -62,13 +62,25 @@ typedef struct s_audio {
 	uint8_t		channel;
 }	t_audio;
 
+//		cbd_audio.c
 t_audio	*cbd_init_audio(void);
 void	cbd_uninit_audio(t_audio *audio);
-void	play_sound(t_audio *audio, uint8_t type, float volume, float pitch);
-void	play_walk_sound(t_audio *audio, float dt);
-void	loop_sound(t_audio *audio, uint8_t type, bool alternate);
-void	stop_sound(t_audio *audio, uint8_t type);
-void	reset_sounds(t_audio *audio);
-void	update_game_audio(t_audio *audio, t_inventory *inv, enum e_player_state state);
+void	play_sound(const t_audio *audio, uint8_t type, float volume, float pitch);
+void	loop_sound(const t_audio *audio, uint8_t type, bool alternate);
+void	stop_sound(const t_audio *audio, uint8_t type);
+void	reset_sounds(const t_audio *audio);
+
+//		menu_audio.c
 void	update_menu_audio(t_audio *audio, t_app *cbd);
+
+//		game_audio.c
+void	update_game_audio(t_audio *audio, t_inventory *inv, enum e_player_state state);
+
+//		play_cues.c
+void	play_walk_sound(t_audio *audio, float dt);
+void	take_damage(t_audio *audio);
+void 	play_jumpscare(t_audio *audio);
+void 	play_pickup(t_audio *audio);
+void	play_chase(t_audio *audio);
+
 #endif

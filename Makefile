@@ -23,8 +23,10 @@ SRCS	:= \
 		   init/init_weapons.c	\
 		   init/init_particles.c\
 		   audio/game_audio.c	\
+		   audio/init_audio.c	\
 		   audio/menu_audio.c	\
 		   audio/cbd_audio.c 	\
+		   audio/play_cues.c	\
 		   audio/miniaudio.c 	\
 		   parser/parser.c 		\
 		   parser/init.c 		\
@@ -36,6 +38,8 @@ SRCS	:= \
 		   menu/menu_navigation.c\
 		   menu/menu_setters.c	\
 		   menu/menu_loadmap.c	\
+		   menu/menu_toggle.c	\
+		   menu/menu_preview.c	\
 		   raycaster/raycaster.c\
 		   vec/vec.c			\
 		   render/draw.c		\
@@ -51,6 +55,7 @@ SRCS	:= \
 		   utility/cleanup.c	\
 		   input/input.c		\
 		   input/combat.c		\
+		   input/game_input.c	\
 		   input/player_movement.c		\
 		   input/player_animation.c		\
 		   input/particle_movement.c		\

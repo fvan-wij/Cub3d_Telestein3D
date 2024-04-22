@@ -1,32 +1,37 @@
 #include <cub3d.h>
 #include <cbd_audio.h>
 #include <cbd_error.h>
-
 #include <stdio.h>
-void deal_damage(t_app *cbd)
+
+void	deal_damage(t_app *cbd)
 {
-	if (cbd->playerdata.inv->wpns[WPN_CHAINSAW].ammo <= 0)
+	t_weapon	*weapon;
+
+	weapon = &cbd->playerdata.inv->weapons[WPN_CHAINSAW];
+	if (weapon->ammo <= 0)
 		return ;
-	if ((mlx_is_key_down(cbd->mlx, MLX_KEY_SPACE) || mlx_is_mouse_down(cbd->mlx, MLX_MOUSE_BUTTON_LEFT))&& cbd->playerdata.inv->equipped == WPN_CHAINSAW)
+	if ((mlx_is_key_down(cbd->mlx, MLX_KEY_SPACE)
+			|| mlx_is_mouse_down(cbd->mlx, MLX_MOUSE_BUTTON_LEFT))
+		&& cbd->playerdata.inv->equipped == WPN_CHAINSAW)
 	{
-		if (cbd->playerdata.target_entity != NULL && cbd->playerdata.target_distance < 0.5)
+		if (cbd->playerdata.target_entity != NULL
+			&& cbd->playerdata.target_distance < 0.5)
 		{
 			cbd->render.fx.crt = true;
 			cbd->render.fx.blood = true;
 			cbd->render.fx.splat = true;
-			cbd->playerdata.inv->wpns[WPN_CHAINSAW].ammo-=cbd->mlx->delta_time * 10;
-			cbd->playerdata.target_entity->health-=cbd->mlx->delta_time;
+			weapon->ammo -= cbd->mlx->delta_time * 10;
+			cbd->playerdata.target_entity->health -= cbd->mlx->delta_time;
 			if (cbd->playerdata.target_entity->enabled)
 				dismember_enemy(cbd);
 		}
 		else
-			cbd->playerdata.inv->wpns[WPN_CHAINSAW].ammo-=cbd->mlx->delta_time * 10;
+			weapon->ammo -= cbd->mlx->delta_time * 10;
 	}
 }
 
 void	update_timers(t_fx *fx, float dt)
 {
-	// Screen blood splatter timer
 	if (fx->splat)
 		fx->splat_timer -= dt * 1000;
 	if (fx->splat_timer < 0)
@@ -34,12 +39,9 @@ void	update_timers(t_fx *fx, float dt)
 		fx->splat_timer = 150;
 		fx->splat = false;
 	}
-
-	//Pulse timer
 	fx->pulse_timer -= dt * 2;
 	if (fx->pulse_timer < 0)
 		fx->pulse_timer = 1000;
-	//Screenshake
 	if (fx->crt)
 		fx->crt_timer -= dt * 1000;
 	if (fx->crt_timer < 0)
@@ -49,11 +51,10 @@ void	update_timers(t_fx *fx, float dt)
 	}
 }
 
-
-t_entity *spawn_blood(t_entity *head, t_player *player, uint8_t limb)
+t_entity	*spawn_blood(t_entity *head, t_player *player, uint8_t limb)
 {
-	t_entity *node;
-	t_entity *curr;
+	t_entity	*node;
+	t_entity	*curr;
 
 	node = ft_calloc(1, sizeof(t_entity));
 	if (!node)
@@ -64,13 +65,15 @@ t_entity *spawn_blood(t_entity *head, t_player *player, uint8_t limb)
 	curr->next = node;
 	node->next = NULL;
 	node->name = ft_strdup("blood");
-	node->pos = vec_assign(player->pos.x + player->dir.x, player->pos.y + player->dir.y);
+	node->pos = vec_assign(player->pos.x + player->dir.x,
+			player->pos.y + player->dir.y);
 	node->type = ENTITY_DECOR;
 	node->texture = mlx_load_png("./data/textures/sprites/limbs3.png");
 	node->frame_width = 128;
 	node->frame_height = 128;
 	node->enabled = true;
-	node->animation = load_animation(node->texture, node->frame_width, node->frame_height);
+	node->animation = load_animation(node->texture,
+			node->frame_width, node->frame_height);
 	node->animation.current_animation = limb;
 	return (head);
 }
@@ -84,15 +87,13 @@ void	dismember_enemy(t_app *cbd)
 	target_distance = cbd->playerdata.target_distance;
 	if (target->health <= 0)
 		return ;
-	if (ft_strncmp(target->name, "po", 2) == 0 && target_distance < 0.5)
+	if (ft_strncmp(target->name, "po", 2) == 0
+		&& target_distance < 0.5 && !target->enabled)
 	{
-		if (!target->enabled)
-			return ;
-		if (target->health % 20 == 0)
+		if (target->health % 20 == 0 && target->limb <= 4)
 		{
-			target->speed-=0.15;
-			if (target->limb <= 4)
-				spawn_blood(cbd->mapdata->entities, &cbd->playerdata, target->limb);
+			spawn_blood(cbd->mapdata->entities, &cbd->playerdata, target->limb);
+			target->speed -= 0.15;
 			target->limb++;
 			target->animation.current_animation = (target->limb * 2);
 		}

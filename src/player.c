@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <cbd_audio.h>
 #include <cbd_error.h>
+#include <math.h>
 
 void	attack_player(t_entity *ent, t_player *playerdata, t_fx *fx)
 {
@@ -48,4 +49,12 @@ void	escape_player(t_vec2d pos, t_vec2d dir, t_app *cbd)
 		reset_inventory(cbd->playerdata.inv);
 		init_playerdata(&cbd->playerdata, cbd->mapdata);
 	}
+}
+
+void	update_headbob_animation(t_app *cbd)
+{
+	peek_map(cbd->playerdata.inv, &cbd->render,
+		cbd->render.hud->img[HUD_MAP], cbd->mlx);
+	cbd->render.y_offset += (sin(cbd->render.headbob) * 10)
+		+ cbd->render.map_peak;
 }

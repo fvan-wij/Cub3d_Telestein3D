@@ -5,55 +5,48 @@
 #include <cbd_audio.h>
 #include <math.h>
 
-t_vec2d	resolve_collision(char **map, t_vec2d pos, t_vec2d dir, t_vec2d potential_pos)
+float	correct_wall_clipping(float pos_component, bool invert,
+		float pot_component, float radius)
 {
-	t_vec2d local_pos;
-	float r = vec_length(dir) / 8;
-	float overlap;
+	float	overlap;
+	float	delta;
 
-	local_pos.x = pos.x - (int) pos.x;
-	local_pos.y = pos.y - (int) pos.y;
-	char U = map[(int)pos.y - 1][(int)pos.x];
-	char R = map[(int)pos.y][(int)pos.x + 1];
-	char D = map[(int)pos.y + 1][(int)pos.x];
-	char L = map[(int)pos.y][(int)pos.x - 1];
+	if (invert)
+		delta = 1 - pos_component;
+	else
+		delta = pos_component;
+	if (delta <= radius)
+	{
+		overlap = radius - delta;
+		if (invert)
+			pot_component -= overlap;
+		else
+			pot_component += overlap;
+	}
+	return (pot_component);
+}
 
-	if (local_pos.x <= 0.5 && is_wall_bonus(L))
-	{
-		float dl = local_pos.x;
-		if (dl <= r)
-		{
-			overlap = r - dl;
-			potential_pos.x = potential_pos.x + overlap;
-		}
-	}
-	if (local_pos.y >= 0.5 && is_wall_bonus(D))
-	{
-		float dd = 1 - local_pos.y;
-		if (dd <= r)
-		{
-			overlap = r - dd;
-			potential_pos.y = potential_pos.y - overlap;
-		}
-	}
-	if (local_pos.y <= 0.5 && is_wall_bonus(U))
-	{
-		float du = local_pos.y;
-		if (du <= r)
-		{
-			overlap = r - du;
-			potential_pos.y = potential_pos.y + overlap;
-		}
-	}
-	if (local_pos.x >= 0.5 && is_wall_bonus(R))
-	{
-		float dr = 1 - local_pos.x;
-		if (dr <= r)
-		{
-			overlap = r - dr;
-			potential_pos.x = potential_pos.x - overlap;
-		}
-	}
+t_vec2d	resolve_collision(char **map, t_vec2d pos,
+		t_vec2d dir, t_vec2d potential_pos)
+{
+	const char	u = map[(int)pos.y - 1][(int)pos.x];
+	const char	r = map[(int)pos.y][(int)pos.x + 1];
+	const char	d = map[(int)pos.y + 1][(int)pos.x];
+	const char	l = map[(int)pos.y][(int)pos.x - 1];
+	const float	radius = vec_length(dir) / 8;
+
+	if ((pos.x - (int) pos.x) <= 0.5 && is_wall_bonus(l))
+		potential_pos.x = correct_wall_clipping((pos.x - (int) pos.x),
+				false, potential_pos.x, radius);
+	if ((pos.y - (int) pos.y) >= 0.5 && is_wall_bonus(d))
+		potential_pos.y = correct_wall_clipping((pos.y - (int) pos.y),
+				true, potential_pos.y, radius);
+	if ((pos.y - (int) pos.y) <= 0.5 && is_wall_bonus(u))
+		potential_pos.y = correct_wall_clipping((pos.y - (int) pos.y),
+				false, potential_pos.y, radius);
+	if ((pos.x - (int) pos.x) >= 0.5 && is_wall_bonus(r))
+		potential_pos.x = correct_wall_clipping((pos.x - (int) pos.x),
+				true, potential_pos.x, radius);
 	return (potential_pos);
 }
 
@@ -71,9 +64,14 @@ void	reset_player_animation(t_render *render, mlx_t *mlx)
 		render->headbob = 0;
 }
 
-void	peek_map(t_inventory *inv, t_render *render, mlx_image_t *img, mlx_t *mlx)
+void	peek_map(t_inventory *inv, t_render *render,
+		mlx_image_t *img, mlx_t *mlx)
 {
-	inv->wpns[inv->equipped].img->instances[0].x = (cos(render->headbob) * 2) + (WIDTH>>1) - (inv->wpns[inv->equipped].img->width>>1);
+	t_weapon	*weapon;
+
+	weapon = &inv->weapons[inv->equipped];
+	weapon->img->instances[0].x = (cos(render->headbob) * 2)
+		+ (WIDTH >> 1) - (weapon->img->width >> 1);
 	if (render->map_peak < -99)
 		render->map_peak = -99;
 	if (img->enabled && render->map_peak > -100)
