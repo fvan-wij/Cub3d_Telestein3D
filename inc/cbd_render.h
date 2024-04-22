@@ -57,6 +57,16 @@ typedef union s_rgba
 	};
 }	t_rgba;
 
+typedef struct s_dda
+{
+	t_vec2d	side_dist;
+	t_vec2d	delta_dist;
+	t_vec2i	vec_map;
+	t_vec2i	step;
+	double	perp_wall_dist;
+	bool	hit;
+}	t_dda;
+
 typedef struct s_ray {
 	t_vec2d	dir;
 	t_vec2d intersection;
