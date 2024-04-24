@@ -16,7 +16,6 @@ int32_t	main(int argc, char *argv[])
 	cbd.mapdata = cbd_parse_map(argv[1]);
 	if (!cbd.mapdata)
 		return (FAILURE);
-	print_debug_info(&cbd);
 	if (cbd_main(&cbd))
 		return (FAILURE);
 	return (SUCCESS);

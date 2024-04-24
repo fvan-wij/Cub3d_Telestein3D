@@ -38,6 +38,8 @@ SRCS	:= \
 		   menu/menu_preview.c	\
 		   raycaster/raycaster.c\
 		   vec/vec.c			\
+		   vec/vec_operations.c	\
+		   vec/vec_operations_basic.c \
 		   render/draw.c		\
 		   render/line.c		\
 		   render/shape.c		\

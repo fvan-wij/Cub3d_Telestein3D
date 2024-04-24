@@ -6,9 +6,10 @@
 
 void	play_single_animation(float dt, t_weapon *weapon)
 {
-	int current_frame;
+	int	current_frame;
 
-	current_frame = (int) (weapon->fire_animation->timer / weapon->fire_animation->frames[0].duration);
+	current_frame = (int)(weapon->fire_animation->timer
+			/ weapon->fire_animation->frames[0].duration);
 	weapon->fire_animation->timer += dt * 25;
 	if (current_frame == 1)
 		weapon->fire_animation->frames[0].img->enabled = true;
@@ -34,7 +35,7 @@ void	play_single_animation(float dt, t_weapon *weapon)
 
 void	play_loop_animation(t_weapon *weapon)
 {
-	const int shake = weapon->fire_animation->current_x + (sin(rand()) * 3);
+	const int	shake = weapon->fire_animation->current_x + (sin(rand()) * 3);
 
 	if (weapon->fire_animation->loop)
 	{
@@ -58,24 +59,26 @@ void	update_animation(mlx_t *mlx, t_weapon *weapon)
 
 void	reset_animation(t_weapon *current_weapon)
 {
-		current_weapon->fire_animation->loop = false;
-		if (current_weapon->fire_animation->frames[0].img)
-			current_weapon->fire_animation->frames[0].img->enabled = false;
-		if (current_weapon->fire_animation->frames[1].img)
-			current_weapon->fire_animation->frames[1].img->enabled = false;
-		if (current_weapon->fire_animation->frames[2].img)
-			current_weapon->fire_animation->frames[2].img->enabled = false;
-		if( current_weapon->img->enabled)
-			current_weapon->img->enabled = true;
-		if (current_weapon->fire_animation->frames[1].img)
-			current_weapon->fire_animation->frames[1].img->instances->x = current_weapon->fire_animation->reset_x;
-		// if ()
-		current_weapon->fire_animation->current_x = current_weapon->fire_animation->reset_x;
+	t_animation	*fire_animation;
+
+	fire_animation = current_weapon->fire_animation;
+	fire_animation->loop = false;
+	if (fire_animation->frames[0].img)
+		fire_animation->frames[0].img->enabled = false;
+	if (fire_animation->frames[1].img)
+		fire_animation->frames[1].img->enabled = false;
+	if (fire_animation->frames[2].img)
+		fire_animation->frames[2].img->enabled = false;
+	if (current_weapon->img->enabled)
+		current_weapon->img->enabled = true;
+	if (fire_animation->frames[1].img)
+		fire_animation->frames[1].img->instances->x = fire_animation->reset_x;
+	fire_animation->current_x = fire_animation->reset_x;
 }
 
 void	play_weapon_animation(mlx_t	*mlx, t_inventory *inv)
 {
-	t_weapon *weapon;
+	t_weapon	*weapon;
 
 	weapon = &inv->weapons[inv->equipped];
 	if (!weapon)
