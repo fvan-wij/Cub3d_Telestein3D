@@ -28,9 +28,9 @@ void	update_player(t_player *playerdata, t_app *cbd)
 
 void	escape_player(t_vec2d pos, t_vec2d dir, t_app *cbd)
 {
-	t_audio 	*audio;
-	const char 	**map = (const char**) cbd->mapdata->cbd_map;
-	t_vec2d 	potential_pos = vec_add(pos, dir);
+	t_audio			*audio;
+	const char		**map = (const char**) cbd->mapdata->cbd_map;
+	const t_vec2d	potential_pos = vec_add(pos, dir);
 
 	if (map[(int)potential_pos.y][(int)potential_pos.x] == '3')
 	{

@@ -18,6 +18,7 @@ SRCS	:= \
 		   entity.c				\
 		   player.c				\
 		   init/cbd_init.c		\
+		   init/audio_trigger_init.c \
 		   audio/game_audio.c	\
 		   audio/init_audio.c	\
 		   audio/menu_audio.c	\
@@ -36,6 +37,8 @@ SRCS	:= \
 		   menu/menu_loadmap.c	\
 		   menu/menu_toggle.c	\
 		   menu/menu_preview.c	\
+		   gameplay/item_pickup.c \
+		   gameplay/enemy_behaviour.c	\
 		   raycaster/raycaster.c\
 		   vec/vec.c			\
 		   vec/vec_operations.c	\

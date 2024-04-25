@@ -18,7 +18,7 @@ t_vec2d	vec_assign(double x, double y)
 	return (new);
 }
 
-t_vec2i	vec2i_assign(double x, double y)
+t_vec2i	vec2i(double x, double y)
 {
 	t_vec2i	new;
 

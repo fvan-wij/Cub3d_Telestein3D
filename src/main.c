@@ -8,7 +8,7 @@
 
 int32_t	main(int argc, char *argv[])
 {
-	t_app cbd;
+	t_app	cbd;
 
 	if (!arg_is_valid(argc, argv))
 		return (FAILURE);

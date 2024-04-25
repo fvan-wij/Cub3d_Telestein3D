@@ -20,7 +20,7 @@ static t_vec2d	calculate_delta_distance(t_vec2d dir)
 static void	calculate_dda_components(t_dda *dda, t_ray *ray,
 		t_vec2d pos, t_vec2d dir)
 {
-	dda->vec_map = vec2i_assign(pos.x, pos.y);
+	dda->vec_map = vec2i(pos.x, pos.y);
 	dda->delta_dist = calculate_delta_distance(dir);
 	if (ray->dir.x < 0)
 	{

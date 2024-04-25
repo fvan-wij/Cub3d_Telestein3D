@@ -91,6 +91,8 @@ t_audio	*cbd_init_audio(void)
 	ma_sound_set_volume(game_audio->sound[SND_WALK_GRASS], 0.6f);
 	ma_sound_set_volume(game_audio->sound[SND_SAW], 3.0f);
 	ma_sound_set_volume(game_audio->sound[SND_SAW_IDLE], 0.6f);
+
+
 	game_audio->is_initialized = true;
 	return (game_audio);
 }

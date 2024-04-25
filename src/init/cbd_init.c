@@ -55,7 +55,7 @@ t_menu	*cbd_init_menu(mlx_t *mlx, t_map *map)
 	set_main_cursor_positions(menu);
 	set_select_cursor_positions(menu);
 	set_map_preview_positions(menu);
-	menu->game_over.cursor_pos = vec2i_assign(WIDTH / 2 - 64, HEIGHT / 2);
+	menu->game_over.cursor_pos = vec2i(WIDTH / 2 - 64, HEIGHT / 2);
 	menu->game_won.cursor_pos = menu->game_over.cursor_pos;
 	set_menu_state(menu, MAIN);
 	menu->main_menu.preview_img->instances->x = menu->preview_positions[map->current_map].x;

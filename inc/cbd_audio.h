@@ -74,7 +74,7 @@ void	reset_sounds(const t_audio *audio);
 void	update_menu_audio(t_audio *audio, t_app *cbd);
 
 //		game_audio.c
-void	update_game_audio(t_audio *audio, t_inventory *inv, enum e_player_state state);
+void	update_game_audio(t_audio *audio, t_inventory *inv, enum e_player_state state, mlx_t *mlx);
 
 //		play_cues.c
 void	play_walk_sound(t_audio *audio, float dt);
