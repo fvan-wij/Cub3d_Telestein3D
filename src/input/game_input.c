@@ -6,7 +6,7 @@ static void	switch_item(mlx_t *mlx, t_inventory *inv, t_audio *audio)
 {
 	const uint8_t	current_wpn = inv->equipped;
 
-	if (inv->wpns[inv->equipped].use_anim->loop)
+	if (!inv->weapons[inv->equipped].fire_animation->loop)
 	{
 		if (mlx_is_key_down(mlx, MLX_KEY_1))
 			inv->equipped = WPN_FIST;

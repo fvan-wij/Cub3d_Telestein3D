@@ -6,7 +6,7 @@
 /*   By: dritsema <dritsema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/16 15:31:34 by dritsema      #+#    #+#                 */
-/*   Updated: 2024/04/22 16:45:53 by dritsema      ########   odam.nl         */
+/*   Updated: 2024/04/26 15:53:41 by dritsema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,173 @@ mlx_image_t	*cbd_init_texture_img(mlx_t *mlx, char *path)
 	img = mlx_texture_to_image(mlx, tmp);
 	mlx_delete_texture(tmp);
 	return (img);
+}
+
+t_menu	*cbd_init_menu(mlx_t *mlx, t_map *map)
+{
+	t_menu 			*menu;
+
+	menu = ft_calloc(1, sizeof(t_menu));
+	if (!menu)
+		return (NULL);
+
+	// Main menu
+	menu->main_menu.bg = cbd_init_texture_img(mlx, "./data/menu/menu_main.png");
+	menu->main_menu.cursor = cbd_init_texture_img(mlx, "./data/menu/selector_knife.png");
+
+	// Select menu
+	menu->select_menu.bg = cbd_init_texture_img(mlx, "./data/menu/menu_map_select.png");
+	menu->select_menu.cursor = menu->main_menu.cursor;
+
+	// Game over
+	menu->game_over.bg = cbd_init_texture_img(mlx, "./data/menu/game_over.png");
+	menu->game_over.cursor = menu->main_menu.cursor;
+
+	// Game won
+	menu->game_won.bg = cbd_init_texture_img(mlx, "./data/menu/game_won.png");
+	menu->game_won.cursor = menu->main_menu.cursor;
+
+	menu->select_menu.preview_img = cbd_init_texture_img(mlx, "./data/textures/map_preview.png");
+	menu->main_menu.preview_img = menu->select_menu.preview_img;
+	mlx_image_to_window(mlx, menu->main_menu.preview_img, 0, 0);
+	mlx_image_to_window(mlx, menu->main_menu.bg, 0, 0);
+	mlx_image_to_window(mlx, menu->select_menu.bg, 0, 0);
+	mlx_image_to_window(mlx, menu->game_over.bg, 0, 0);
+	mlx_image_to_window(mlx, menu->game_won.bg, 0, 0);
+	mlx_image_to_window(mlx, menu->main_menu.cursor, WIDTH / 2 + 64, HEIGHT / 2);
+	menu->game_won.bg->instances->enabled = false;
+	set_main_cursor_positions(menu);
+	set_select_cursor_positions(menu);
+	set_map_preview_positions(menu);
+	menu->game_over.cursor_pos = vec2i(WIDTH / 2 - 64, HEIGHT / 2);
+	menu->game_won.cursor_pos = menu->game_over.cursor_pos;
+	set_menu_state(menu, MAIN);
+	menu->main_menu.preview_img->instances->x = menu->preview_positions[map->current_map].x;
+	menu->main_menu.preview_img->instances->y = menu->preview_positions[map->current_map].y;
+	return (menu);
+}
+
+t_animation	*init_weapon_animation(mlx_t *mlx, char *path)
+{
+	t_animation	*animation;
+	char 		*temp;
+	int			n;
+	int			i;
+	int 		w;
+	int 		h;
+
+	animation = ft_calloc(1, sizeof(t_animation));
+	if (!path && animation)
+		return (animation);
+	n = ft_strchr_index(path, '0');
+	if (!animation)
+		return (NULL);
+	temp = ft_strdup(path);
+	if (!temp)
+		return (NULL);
+	i = 0;
+	while (i < MAX_FRAMES)
+	{
+		animation->frames[i].img = cbd_init_texture_img(mlx, temp);
+		if (!animation->frames[i].img)
+			return (NULL);
+
+		w = (WIDTH/2) - (animation->frames[i].img->width / 2);
+		h = HEIGHT - (animation->frames[i].img->height>>1) - 100;
+		mlx_image_to_window(mlx, animation->frames[i].img, w, h);
+		animation->frames[i].img->enabled = false;
+		animation->frames[i].duration = 2;
+		temp[n] = temp[n] + 1;
+		i++;
+	}
+	animation->n_frames = MAX_FRAMES;
+	free(temp);
+	return (animation);
+}
+
+t_inventory *cbd_init_inventory(mlx_t *mlx)
+{
+	t_inventory	*inv;
+	inv = ft_calloc(1, sizeof(t_inventory));
+	if (!inv)
+		return (NULL);
+	inv->weapons[WPN_FIST].img = cbd_init_texture_img(mlx, "./data/textures/player/hands2.png");
+	inv->weapons[WPN_MAP].img = cbd_init_texture_img(mlx, "./data/textures/player/radar4.png");
+	inv->weapons[WPN_CHAINSAW].img = cbd_init_texture_img(mlx, "./data/textures/player/chainsaw.png");
+
+	inv->weapons[WPN_FIST].type = WPN_FIST;
+	inv->weapons[WPN_CHAINSAW].type = WPN_CHAINSAW;
+	inv->weapons[WPN_FIST].fire_animation = init_weapon_animation(mlx, "./data/textures/player/animation/fist/frame_0.png");
+	if (!inv->weapons[WPN_FIST].fire_animation)
+		return (NULL);
+	inv->weapons[WPN_CHAINSAW].fire_animation = init_weapon_animation(mlx, "./data/textures/player/animation/chainsaw/frame_0.png");
+	if (!inv->weapons[WPN_CHAINSAW].fire_animation)
+		return (NULL);
+	inv->weapons[WPN_CHAINSAW].fire_animation->frames[1].img->instances->x +=150;
+	inv->weapons[WPN_CHAINSAW].fire_animation->frames[1].img->instances->y -=100;
+	mlx_delete_image(mlx, inv->weapons[WPN_CHAINSAW].fire_animation->frames[2].img);
+	inv->weapons[WPN_CHAINSAW].fire_animation->frames[2] = inv->weapons[WPN_CHAINSAW].fire_animation->frames[0];
+	inv->weapons[WPN_CHAINSAW].fire_animation->reset_x = inv->weapons[WPN_CHAINSAW].fire_animation->frames[1].img->instances->x;
+	inv->weapons[WPN_CHAINSAW].fire_animation->current_x = inv->weapons[WPN_CHAINSAW].fire_animation->reset_x;
+	inv->weapons[WPN_MAP].fire_animation = init_weapon_animation(mlx, NULL);
+	if (!inv->weapons[WPN_MAP].fire_animation)
+		return (NULL);
+
+	inv->weapons[WPN_CHAINSAW].in_inventory = false;
+	inv->weapons[WPN_MAP].in_inventory = false;
+	return (inv);
+}
+
+void	init_blood_splat(t_particle *splat_particle)
+{
+	int i;
+
+	i = 0;
+	while (i < MAX_BLOOD_PARTICLES)
+	{
+		float dice = (rand() / (float) RAND_MAX);
+		float rvalx = cos(rand());
+		float rvaly = sin(rand());
+		if (dice < 0.5)
+			rvalx = -rvalx;
+		if (dice < 0.3)
+			rvaly = -rvaly;
+		splat_particle[i].dir.x = rvalx;
+		splat_particle[i].dir.y = rvaly;
+		splat_particle[i].p.x = (WIDTH>>1) + (rvalx * 750);
+		splat_particle[i].p.y = (HEIGHT>>1) + (rvaly * 750);
+		splat_particle[i].size.x = dice * 10;
+		splat_particle[i].size.y = splat_particle[i].size.x;
+		splat_particle[i].reset = splat_particle[i].size;
+		splat_particle[i].rp = splat_particle[i].p;
+		i++;
+	}
+}
+
+void	init_blood_particles(t_particle *blood_particle)
+{
+	int i;
+
+	i = 0;
+	while (i < MAX_BLOOD_PARTICLES)
+	{
+		float dice = (rand() / (float) RAND_MAX);
+		float rvalx = cos(rand());
+		float rvaly = sin(rand()) + 1;
+		if (dice < 0.5)
+			rvalx = -rvalx;
+		if (dice < 0.2)
+			rvaly = -rvaly;
+		blood_particle[i].dir.x = rvalx * 10;
+		blood_particle[i].dir.y = rvaly * 10;
+		blood_particle[i].p.x = (WIDTH>>1) + (rvalx * 150);
+		blood_particle[i].p.y = (HEIGHT>>1) + (rvaly * 150);
+		blood_particle[i].size.x = dice * 75;
+		blood_particle[i].size.y = blood_particle[i].size.x;
+		blood_particle[i].reset = blood_particle[i].size;
+		blood_particle[i].rp = blood_particle[i].p;
+		i++;
+	}
 }
 
 void	init_render(t_render *render, t_hud *hud, t_inventory *inv)

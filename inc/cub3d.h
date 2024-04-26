@@ -6,7 +6,7 @@
 /*   By: dritsema <dritsema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/22 15:29:29 by dritsema      #+#    #+#                 */
-/*   Updated: 2024/04/22 15:30:14 by dritsema      ########   odam.nl         */
+/*   Updated: 2024/04/26 15:51:36 by dritsema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ void		mouse_hook(mouse_key_t button, action_t action,
 void		destroy_wall(t_map *mapdata,
 				const t_player *player, t_audio *audio);
 void		reset_inventory(t_inventory *inv);
+void	update_enemy(t_entity *ent, t_app *cbd);
 
 // Beheading
 void		behead(t_app *cbd);
@@ -122,6 +123,7 @@ void		move_player(t_app *cbd, float move_speed);
 void		change_map(t_app *cbd);
 void		rotate_player(t_player *playerdata,
 				t_particle *particles, float angle);
+void	update_item(t_entity *item, t_app *cbd);
 
 //		Combat
 void		dismember_enemy(t_app *cbd);
@@ -139,6 +141,7 @@ void		game_input(mlx_key_data_t keydata, t_app *cbd, t_audio *audio);
 //		Init
 mlx_image_t	*cbd_init_texture_img(mlx_t *mlx, char *path);
 void		init_playerdata(t_player *playerdata, t_map *map);
+void	init_sound_triggers(t_audio *audio, t_app *cbd);
 t_inventory	*cbd_init_inventory(mlx_t *mlx);
 bool		init_weapons(mlx_t *mlx, t_inventory *inv);
 void		init_particles(t_particle *particles);

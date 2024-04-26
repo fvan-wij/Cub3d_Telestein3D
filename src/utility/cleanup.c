@@ -3,18 +3,6 @@
 #include <MLX42.h>
 #include <stdlib.h>
 
-	// enum e_entity_type	type;
-	// t_vec2d				pos;
-	// t_vec2d				dir;
-	// t_vec2d				*destinations;
-	// int					health;
-	// int					damage;
-	// int					current_dest;
-	// float				speed;
-	// float				audio_timer;
-	// mlx_texture_t		*texture;
-	// enum e_entity_state	state;
-
 void	free_node(t_entity *node)
 {
 	if (node->destinations)
@@ -24,14 +12,10 @@ void	free_node(t_entity *node)
 	free(node);
 }
 
-void	cleanup_map(t_map *map)
+void	free_jump_table(t_map *map)
 {
-	int i;
+	int	i;
 
-	if (map->raw_data)
-		ft_del_2d(map->raw_data);
-	if (map->cbd_map)
-		ft_del_2d(map->cbd_map);
 	i = 0;
 	while (i < 255)
 	{
@@ -46,11 +30,20 @@ void	cleanup_map(t_map *map)
 			mlx_delete_texture(map->walls.w_tex[i]);
 		i++;
 	}
+}
+
+void	cleanup_map(t_map *map)
+{
+	t_entity	*temp;
+	t_entity	*curr;
+
+	if (map->raw_data)
+		ft_del_2d(map->raw_data);
+	if (map->cbd_map)
+		ft_del_2d(map->cbd_map);
+	free_jump_table(map);
 	if (map->entities)
 	{
-		t_entity *temp;
-		t_entity *curr;
-
 		curr = map->entities;
 		while (curr->next != NULL)
 		{
@@ -64,14 +57,6 @@ void	cleanup_map(t_map *map)
 
 void	cleanup_menu(t_menu *menu)
 {
-	// int i;
-
-	// i = 0;
-	// while (i < M_SIZE)
-	// {
-	// 	// mlx_delete_texture(menu->menu_tex[i]);
-	// 	i++;
-	// }
 	free(menu);
 }
 

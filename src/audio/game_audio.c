@@ -54,8 +54,23 @@ static void	handle_chainsaw_sound(t_audio *audio, t_inventory *inv)
 	}
 }
 
+static void	update_foreshadowing(t_audio *audio, t_entity *ent, float dt)
+{
+	t_vec2d		new_pos;
+
+	if (audio->t2)
+	{
+		new_pos = ent->pos;
+		ent->dir = vec_assign(-1.0, 0.0);
+		new_pos = vec_add(new_pos, vec_mult(ent->dir, ent->speed * dt));
+		ent->pos = new_pos;
+		if ((int) ent->pos.x < 21)
+			ent->enabled = false;
+	}
+}
+
 void	update_game_audio(t_audio *audio, t_inventory *inv,
-							enum e_player_state state)
+							enum e_player_state state, mlx_t *mlx)
 {
 	stop_sound(audio, SND_MENU);
 	stop_sound(audio, SND_GAME_OVER);
@@ -70,5 +85,6 @@ void	update_game_audio(t_audio *audio, t_inventory *inv,
 	play_pickup(audio);
 	play_chase(audio);
 	update_walking_sounds(audio, state);
+	update_foreshadowing(audio, audio->trigger2, mlx->delta_time);
 	handle_chainsaw_sound(audio, inv);
 }
