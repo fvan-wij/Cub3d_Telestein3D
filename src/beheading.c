@@ -81,7 +81,7 @@ void	behead(t_app *cbd)
 		cbd->beheading.chainsaw_pos.x += 30.0f * cbd->mlx->delta_time;
 	}
 	cbd->render.po_head->instances[0].y = cbd->render.y_offset;
-	cbd->playerdata.inv->weapons[WPN_CHAINSAW].fire_animation->current_x
+	cbd->playerdata.inv->wpns[WPN_CHAINSAW].use_anim->current_x
 		= cbd->beheading.chainsaw_pos.x;
 	if (cbd->beheading.chainsaw_pos.x >= (float) WIDTH / 2 - 100)
 	{

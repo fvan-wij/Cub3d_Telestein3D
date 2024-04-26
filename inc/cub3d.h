@@ -6,7 +6,7 @@
 /*   By: dritsema <dritsema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/22 15:29:29 by dritsema      #+#    #+#                 */
-/*   Updated: 2024/04/26 15:51:36 by dritsema      ########   odam.nl         */
+/*   Updated: 2024/04/26 16:30:09 by dritsema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,5 +146,7 @@ t_inventory	*cbd_init_inventory(mlx_t *mlx);
 bool		init_weapons(mlx_t *mlx, t_inventory *inv);
 void		init_particles(t_particle *particles);
 t_menu		*cbd_init_menu(mlx_t *mlx, t_map *map);
+void		cbd_init_beheading(t_app *cbd);
+t_hud		*cbd_init_hud(mlx_t *mlx);
 
 #endif //CUBER3D_H

@@ -6,7 +6,7 @@
 /*   By: dritsema <dritsema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/16 19:14:26 by dritsema      #+#    #+#                 */
-/*   Updated: 2024/04/22 15:45:54 by dritsema      ########   odam.nl         */
+/*   Updated: 2024/04/26 16:25:41 by dritsema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_menu	*cbd_init_menu(mlx_t *mlx, t_map *map)
 	set_main_cursor_positions(menu);
 	set_select_cursor_positions(menu);
 	set_map_preview_positions(menu);
-	menu->game_over.cursor_pos = vec2i_assign(WIDTH / 2 - 64, HEIGHT / 2);
+	menu->game_over.cursor_pos = vec2i(WIDTH / 2 - 64, HEIGHT / 2);
 	menu->game_won.cursor_pos = menu->game_over.cursor_pos;
 	set_menu_state(menu, MAIN);
 	menu->main_menu.preview_img->instances->x = \

@@ -8,9 +8,9 @@ void	play_single_animation(float dt, t_weapon *weapon)
 {
 	int	current_frame;
 
-	current_frame = (int)(weapon->fire_animation->timer
-			/ weapon->fire_animation->frames[0].duration);
-	weapon->fire_animation->timer += dt * 25;
+	current_frame = (int)(weapon->use_anim->timer
+			/ weapon->use_anim->frames[0].duration);
+	weapon->use_anim->timer += dt * 25;
 	if (current_frame == 1)
 		weapon->use_anim->frames[0].img->enabled = true;
 	else
@@ -35,7 +35,7 @@ void	play_single_animation(float dt, t_weapon *weapon)
 
 void	play_loop_animation(t_weapon *weapon)
 {
-	const int	shake = weapon->fire_animation->current_x + (sin(rand()) * 3);
+	const int	shake = weapon->use_anim->current_x + (sin(rand()) * 3);
 
 	if (weapon->use_anim->loop)
 	{
@@ -61,7 +61,7 @@ void	reset_animation(t_weapon *current_weapon)
 {
 	t_animation	*fire_animation;
 
-	fire_animation = current_weapon->fire_animation;
+	fire_animation = current_weapon->use_anim;
 	fire_animation->loop = false;
 	if (fire_animation->frames[0].img)
 		fire_animation->frames[0].img->enabled = false;
