@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <libft.h>
 
-void	play_sound(const t_audio *audio, uint8_t type, float volume, float pitch)
+void	play_sound(const t_audio *audio, uint8_t type,
+		float volume, float pitch)
 {
 	ma_sound_seek_to_pcm_frame(audio->sound[type], 0);
 	ma_sound_set_pitch(audio->sound[type], pitch);
