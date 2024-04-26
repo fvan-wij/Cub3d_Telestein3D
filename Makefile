@@ -20,6 +20,7 @@ SRCS	:= \
 		   init/cbd_init.c		\
 		   init/init_inventory.c\
 		   init/init_menu.c		\
+		   init/init_hud.c		\
 		   init/init_weapons.c	\
 		   init/init_particles.c\
 		   init/audio_trigger_init.c \

@@ -6,11 +6,12 @@
 /*   By: dritsema <dritsema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/26 16:29:15 by dritsema      #+#    #+#                 */
-/*   Updated: 2024/04/26 16:34:10 by dritsema      ########   odam.nl         */
+/*   Updated: 2024/04/26 16:35:55 by dritsema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
+#include <stdlib.h>
 
 t_hud	*cbd_init_hud(mlx_t *mlx)
 {
