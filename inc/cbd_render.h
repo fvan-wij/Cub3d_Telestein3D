@@ -24,6 +24,15 @@
 # define N_PARTICLES	25
 # define MAX_BLOOD_PARTICLES 25
 
+typedef struct s_wall_strip_data {
+	int		draw_start;
+	int		draw_end;
+	int		wl_height;
+	double	wall_x;
+	double	wall_y;
+	int		y;
+}	t_wall_strip_data;
+
 typedef struct s_bresenham
 {
 	int			error[2];
@@ -203,7 +212,7 @@ void			draw_hud(t_hud *hud, t_inventory *inv);
 void			draw_background(mlx_image_t *img, int32_t color, int peek);
 void			draw_player(mlx_image_t *img);
 void			draw_map(char **map, t_hud *hud, int width, int height);
-void			draw_minimap(mlx_image_t *hud_map, t_vec2d pos, char **map, int width, int height);
+void			draw_minimap(mlx_image_t *hud_map, t_vec2d pos, char **map, t_vec2i size);
 void			draw_wall_strip(t_render render, int x, mlx_texture_t *tex, int color_offset);
 void			draw_walls(t_render render, t_map *map);
 void			draw_walls_bonus(t_render render, t_map *map);
@@ -245,6 +254,9 @@ t_vec2d			resolve_collision(char **map, t_vec2d pos, t_vec2d dir, t_vec2d potent
 void			headbob(float *headbob, float speed);
 void			reset_player_animation(t_render *render, mlx_t *mlx);
 void			peek_map(t_inventory *inv, t_render *render, mlx_image_t *img, mlx_t *mlx);
+
+//				render_utility.c
+t_rgba			get_texture_pixel(mlx_texture_t *tex, double x, double y);
 
 //				Jump table
 // void			initialize_jump_table(wall_strip_func jump_table[256]);

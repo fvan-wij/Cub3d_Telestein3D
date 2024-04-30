@@ -39,6 +39,9 @@ SRCS	:= \
 		   raycaster/raycaster.c\
 		   vec/vec.c			\
 		   render/draw.c		\
+		   render/draw_walls.c	\
+		   render/draw_hud.c	\
+		   render/draw_weapons.c	\
 		   render/line.c		\
 		   render/shape.c		\
 		   render/color.c		\
@@ -47,6 +50,7 @@ SRCS	:= \
 		   render/dithering.c	\
 		   render/walls.c		\
 		   render/particles.c	\
+		   render/render_utility.c	\
 		   utility/printing.c	\
 		   utility/cleanup.c	\
 		   input/input.c		\

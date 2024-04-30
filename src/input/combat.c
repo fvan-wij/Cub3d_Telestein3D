@@ -88,7 +88,7 @@ void	dismember_enemy(t_app *cbd)
 	if (target->health <= 0)
 		return ;
 	if (ft_strncmp(target->name, "po", 2) == 0
-		&& target_distance < 0.5 && !target->enabled)
+		&& target_distance < 0.5)
 	{
 		if (target->health % 20 == 0 && target->limb <= 4)
 		{

@@ -24,7 +24,6 @@ t_rgba	get_animated_pixel(t_animation ani, mlx_texture_t *tex, int texX, int tex
 	int		frameX;
 	int		frameY;
 	int		frame_width;
-	// int		frame_height;
 
 	frame_width = tex->width / ani.n_frames;
 	frameX = texX + frame_width * ani.current_frame;
@@ -33,23 +32,6 @@ t_rgba	get_animated_pixel(t_animation ani, mlx_texture_t *tex, int texX, int tex
 	return (color);
 }
 
-// t_rgba	transparent_color(t_rgba color1, t_rgba color2)
-// {
-// 	t_rgba	new_color;
-// 	double	alpha;
-
-// 	alpha = (double)color1.a / 255;
-// 	new_color.r = (1 - alpha) * color2.r + alpha * color1.r;
-// 	new_color.g = (1 - alpha) * color2.g + alpha * color1.g;
-// 	new_color.b = (1 - alpha) * color2.b + alpha * color1.b;
-// 	new_color.a = 255;
-// 	return (new_color);
-// }
-
-// t_entity	**distance_sort_entities(t_entity *entities)
-// {
-
-// }
 
 void	render_entities(t_render *render, t_entity *entities, t_player *player)
 {

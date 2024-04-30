@@ -3,63 +3,75 @@
 
 static void	fade_blood(mlx_image_t *img)
 {
-	uint32_t x;
-	uint32_t y;
+	uint32_t	x;
+	uint32_t	y;
+	int			index;
+
 	y = 0;
 	while (y < img->height)
 	{
 		x = 0;
 		while (x < img->width)
 		{
-			int index = (x + y * img->width) * 4;
-				if (img->pixels[index + 3] >= 10)
-					img->pixels[index + 3] -= 0.5;
+			index = (x + y * img->width) * 4;
+			if (img->pixels[index + 3] >= 10)
+				img->pixels[index + 3] -= 0.5;
 			x++;
 		}
 		y++;
 	}
 }
 
-#include <stdio.h>
 void	draw_blood_splat(mlx_image_t *img, t_particle *splat, t_fx *fx)
 {
-	int i = 0;
-	int j = 0;
+	t_vec2i		it;
+	t_particle	*particle;
 
+	it = vec2i_assign(0, 0);
 	if (!fx->splat)
+		return (fade_blood(img), init_blood_splat(splat));
+	while (it.x < MAX_BLOOD_PARTICLES)
 	{
-		fade_blood(img);
-		return (init_blood_splat(splat));
-	}
-	while (i < MAX_BLOOD_PARTICLES)
-	{
-		t_particle *particle = &splat[i];
+		particle = &splat[it.x];
 		if (fx->splat)
 		{
-			particle->size.x -= 0.75;
-			particle->size.y -= 0.75;
-			particle->p.x = particle->p.x + (particle->dir.x) * 5;
-			particle->p.y = particle->p.y + (particle->dir.y) * 20;
+			particle->size = vec_sub(particle->size, vec_assign(0.75, 0.75));
+			particle->p = vec_add(particle->p,
+					vec_assign(particle->dir.x * 5, particle->dir.y * 20));
 			if (particle->size.x <= 0 || particle->size.y <= 0)
-				j++;
-			draw_square_centered(img, color_rgba(125, 0, 0, 255), vec_to_int(particle->p), vec_to_int(particle->size));
+				it.y++;
+			draw_square_centered(img, color_rgba(125, 0, 0, 255),
+				vec_to_int(particle->p), vec_to_int(particle->size));
 		}
 		else
 			break ;
-		i++;
+		it.x++;
 	}
-	if (j == MAX_BLOOD_PARTICLES)
+	if (it.y == MAX_BLOOD_PARTICLES)
 		fx->splat = false;
 }
 
-void	draw_blood_particles(mlx_image_t *img, t_particle *blood_particle, t_fx *fx)
+static void	reset_particles(int j, t_fx *fx, t_particle *blood_particle)
 {
-	int i = 0;
-	int j = 0;
+	if (j == MAX_BLOOD_PARTICLES)
+	{
+		fx->blood = false;
+		init_blood_particles(blood_particle);
+	}
+}
 
+void	draw_blood_particles(mlx_image_t *img, t_particle *blood_particle,
+	t_fx *fx)
+{
+	int			i;
+	int			j;
+	t_particle	*particle;
+
+	i = 0;
+	j = 0;
 	while (i < MAX_BLOOD_PARTICLES)
 	{
-		t_particle *particle = &blood_particle[i];
+		particle = &blood_particle[i];
 		if (fx->blood)
 		{
 			particle->size.x -= 10.0;
@@ -68,16 +80,12 @@ void	draw_blood_particles(mlx_image_t *img, t_particle *blood_particle, t_fx *fx
 			particle->p.y = particle->p.y + (particle->dir.y) * 10;
 			if (particle->size.x <= 0 || particle->size.y <= 0)
 				j++;
-			draw_square_centered(img, color_rgba(rand(), 0, 0, 255), vec_to_int(particle->p), vec_to_int(particle->size));
+			draw_square_centered(img, color_rgba(rand(), 0, 0, 255),
+				vec_to_int(particle->p), vec_to_int(particle->size));
 		}
 		else
 			break ;
 		i++;
 	}
-	if (j == MAX_BLOOD_PARTICLES)
-	{
-		fx->blood = false;
-		init_blood_particles(blood_particle);
-	}
+	reset_particles(j, fx, blood_particle);
 }
-

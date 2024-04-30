@@ -33,7 +33,7 @@ void	cbd_render(t_app *cbd)
 	cast_rays(cbd->mapdata->cbd_map, &cbd->render, &cbd->playerdata);
 	draw_walls(cbd->render, cbd->mapdata);
 	render_entities(&cbd->render, cbd->mapdata->entities, &cbd->playerdata);
-	draw_minimap(cbd->hud->img[HUD_MAP], cbd->playerdata.pos, cbd->mapdata->cbd_map, cbd->mapdata->width, cbd->mapdata->height);
+	draw_minimap(cbd->hud->img[HUD_MAP], cbd->playerdata.pos, cbd->mapdata->cbd_map, vec2i_assign(cbd->mapdata->width, cbd->mapdata->height));
 	draw_hud(cbd->hud, cbd->playerdata.inv);
 	draw_equipped_weapon(cbd->playerdata.inv);
 	draw_dust_particles(cbd->render.img, cbd->particles);
