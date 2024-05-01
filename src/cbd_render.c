@@ -27,9 +27,8 @@
 */
 void	cbd_render(t_app *cbd)
 {
-	// draw_gradient_bg(cbd->render.img, cbd->mapdata->floor.color, cbd->mapdata->ceiling.color, cbd->render.y_offset);
-	draw_gradient_top(cbd->render.img, cbd->mapdata->ceiling.color, color(0,0,0), cbd->render.y_offset);
-	draw_gradient_bot(cbd->render.img, color(0,0,0), cbd->mapdata->floor.color, cbd->render.y_offset);
+	draw_gradient_top(cbd->render.img, (t_rgba)cbd->mapdata->ceiling.color, (t_rgba)color(0,0,0), cbd->render.y_offset);
+	draw_gradient_bot(cbd->render.img, (t_rgba)color(0,0,0), (t_rgba)cbd->mapdata->floor.color, cbd->render.y_offset);
 	cast_rays(cbd->mapdata->cbd_map, &cbd->render, &cbd->playerdata);
 	draw_walls(cbd->render, cbd->mapdata);
 	render_entities(&cbd->render, cbd->mapdata->entities, &cbd->playerdata);

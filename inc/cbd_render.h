@@ -24,6 +24,13 @@
 # define N_PARTICLES	25
 # define MAX_BLOOD_PARTICLES 25
 
+typedef struct s_rgba_step {
+	float	r;
+	float	g;
+	float	b;
+	float	a;
+}	t_rgba_step;
+
 typedef struct s_wall_strip_data {
 	int		draw_start;
 	int		draw_end;
@@ -230,9 +237,9 @@ void			draw_circle(mlx_image_t *image, uint32_t color, t_vec2i pos, float r);
 void			draw_dust_particles(mlx_image_t *game, t_particle *particles);
 
 //				Post processing
-void 			draw_gradient_bg(mlx_image_t *img, int32_t c1, int32_t c2, int32_t offset);
-void			draw_gradient_top(mlx_image_t *img, int32_t top, int32_t bot, int32_t end);
-void			draw_gradient_bot(mlx_image_t *img, int32_t top, int32_t bot, int32_t end);
+void 			draw_gradient_bg(mlx_image_t *img, t_rgba top, t_rgba bot, int32_t offset);
+void			draw_gradient_top(mlx_image_t *img, t_rgba top, t_rgba bot, int32_t end);
+void			draw_gradient_bot(mlx_image_t *img, t_rgba top, t_rgba bot, int32_t end);
 void			draw_radial_overlay(mlx_image_t *img, t_app *cbd);
 mlx_texture_t	*dither_texture(mlx_texture_t *tex);
 mlx_image_t		*dither_image(mlx_image_t *img);

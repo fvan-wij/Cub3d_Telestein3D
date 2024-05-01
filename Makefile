@@ -42,10 +42,11 @@ SRCS	:= \
 		   render/draw_walls.c	\
 		   render/draw_hud.c	\
 		   render/draw_weapons.c	\
+		   render/draw_shape.c		\
+		   render/draw_overlay.c \
+		   render/draw_gradient.c \
 		   render/line.c		\
-		   render/shape.c		\
 		   render/color.c		\
-		   render/post_processing.c \
 		   render/entity.c		\
 		   render/dithering.c	\
 		   render/walls.c		\

@@ -3,23 +3,23 @@
 #include <math.h>
 #include <stdlib.h>
 
-void	draw_square_centered(mlx_image_t *image, uint32_t color, t_vec2i pos, t_vec2i dimension)
+void	draw_square_centered(mlx_image_t *image, uint32_t color,
+	t_vec2i pos, t_vec2i dimension)
 {
-	int reset;
+	int	reset;
 
-	pos.x -= (dimension.x>>1);
-	pos.y -= (dimension.y>>1);
-
+	pos.x -= (dimension.x >> 1);
+	pos.y -= (dimension.y >> 1);
 	dimension.x += pos.x;
 	dimension.y += pos.y;
-
 	reset = pos.x;
 	while (pos.y < dimension.y)
 	{
 		pos.x = reset;
 		while (pos.x < dimension.x)
 		{
-			if (pos.x >= 0 && pos.x < (int)image->width && pos.y >= 0 && pos.y < (int)image->height)
+			if (pos.x >= 0 && pos.x < (int)image->width
+				&& pos.y >= 0 && pos.y < (int)image->height)
 				mlx_put_pixel(image, pos.x, pos.y, color);
 			pos.x++;
 		}
@@ -27,33 +27,35 @@ void	draw_square_centered(mlx_image_t *image, uint32_t color, t_vec2i pos, t_vec
 	}
 }
 
-void	draw_square(mlx_image_t *image, uint32_t color, t_vec2i pos, t_vec2i dimension)
+void	draw_square(mlx_image_t *image, uint32_t color,
+	t_vec2i pos, t_vec2i dimension)
 {
-	int reset;
+	int	reset;
 
 	dimension.x += pos.x;
 	dimension.y += pos.y;
-
 	reset = pos.x;
 	while (pos.y < dimension.y)
 	{
 		pos.x = reset;
 		while (pos.x < dimension.x)
 		{
-			if (pos.x >= 0 && pos.x < (int)image->width && pos.y >= 0 && pos.y < (int)image->height)
+			if (pos.x >= 0 && pos.x < (int)image->width
+				&& pos.y >= 0 && pos.y < (int)image->height)
 				mlx_put_pixel(image, pos.x, pos.y, color);
 			pos.x++;
 		}
 		pos.y++;
 	}
 }
+
 void	draw_noise_square(mlx_image_t *image, t_vec2i pos, t_vec2i dimension)
 {
-	int reset;
+	int		reset;
+	uint8_t	noise;
 
 	dimension.x += pos.x;
 	dimension.y += pos.y;
-
 	reset = pos.x;
 	while (pos.y < dimension.y)
 	{
@@ -62,20 +64,20 @@ void	draw_noise_square(mlx_image_t *image, t_vec2i pos, t_vec2i dimension)
 		{
 			if (pos.x >= 0 && pos.x < WIDTH && pos.y >= 0 && pos.y < HEIGHT)
 			{
-				uint8_t	noise = rand();
+				noise = rand();
 				mlx_put_pixel(image, pos.x, pos.y, color(noise, noise, noise));
 			}
-			pos.x+=2;
+			pos.x += 2;
 		}
-		pos.y+=2;
+		pos.y += 2;
 	}
 }
 
 void	draw_circle(mlx_image_t *image, uint32_t color, t_vec2i pos, float r)
 {
-	int 		angle;
-	int 		inner;
-	t_vec2i 		loc;
+	int			angle;
+	int			inner;
+	t_vec2i		loc;
 
 	angle = 0;
 	while (angle < 360)
