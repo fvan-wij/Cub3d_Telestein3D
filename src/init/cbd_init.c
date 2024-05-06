@@ -6,7 +6,7 @@
 /*   By: dritsema <dritsema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/16 15:31:34 by dritsema      #+#    #+#                 */
-/*   Updated: 2024/04/26 16:33:06 by dritsema      ########   odam.nl         */
+/*   Updated: 2024/05/06 16:14:20 by dritsema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,8 @@ void	init_render(t_render *render, t_hud *hud, t_inventory *inv)
 {
 	render->hud = hud;
 	render->inv = inv;
-	render->sprite = malloc(sizeof(t_sprite) * 1);
-	render->sprite[0].pos.x = 2.5;
-	render->sprite[0].pos.y = 9;
-	render->sprite[0].tex = mlx_load_png
-		("./data/textures/sprites/chainsaw.png");
 	render->timer = 100;
+	render->zbuffer = malloc(WIDTH * HEIGHT * sizeof(double));
 	init_blood_splat(render->splat);
 	init_blood_particles(render->blood);
 }
@@ -73,13 +69,15 @@ bool	cbd_init2(t_app *cbd)
 	mlx_image_to_window(cbd->mlx, cbd->hud->img[HUD_OVERLAY], 0, 0);
 	mlx_image_to_window(cbd->mlx, cbd->render.po_head, 0, 0);
 	mlx_image_to_window(cbd->mlx, cbd->hud->img[HUD_MAP],
-			(WIDTH >> 1) - (MINIMAP_WIDTH >> 2) - 16,
-			(HEIGHT >> 1) + (MINIMAP_HEIGHT >> 3) - 8);
+		(WIDTH >> 1) - (MINIMAP_WIDTH >> 2) - 16,
+		(HEIGHT >> 1) + (MINIMAP_HEIGHT >> 3) - 8);
 	cbd->menudata = cbd_init_menu(cbd->mlx, cbd->mapdata);
 	if (!cbd->menudata)
 		return (cbd_error(ERR_ALLOC), FAILURE);
 	init_playerdata(&cbd->playerdata, cbd->mapdata);
 	init_render(&cbd->render, cbd->hud, cbd->playerdata.inv);
+	if (!cbd->render.zbuffer)
+		return (cbd_error(ERR_ALLOC), FAILURE);
 	init_particles(cbd->particles);
 	cbd_init_beheading(cbd);
 	cbd->elapsed_time = 0;

@@ -60,10 +60,16 @@ void	cleanup_menu(t_menu *menu)
 	free(menu);
 }
 
+void	cleanup_render(t_render render)
+{
+	free(render.zbuffer);
+}
+
 void	cleanup(t_app *app)
 {
 	if (app->mapdata)
 		cleanup_map(app->mapdata);
 	if (app->menudata)
 		cleanup_menu(app->menudata);
+	cleanup_render(app->render);
 }

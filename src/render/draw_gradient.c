@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   draw_gradient.c                                    :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: dritsema <dritsema@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/05/06 16:33:01 by dritsema      #+#    #+#                 */
+/*   Updated: 2024/05/06 16:33:02 by dritsema      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <cub3d.h>
 
 t_rgba_step	calculate_step(t_rgba top, t_rgba bot, uint32_t cap)

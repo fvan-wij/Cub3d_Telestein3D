@@ -24,6 +24,11 @@
 # define N_PARTICLES	25
 # define MAX_BLOOD_PARTICLES 25
 
+typedef struct s_map	t_map;
+typedef struct s_player	t_player;
+typedef struct s_entity	t_entity;
+typedef struct s_app	t_app;
+
 typedef struct s_rgba_step {
 	float	r;
 	float	g;
@@ -159,14 +164,6 @@ typedef struct s_hud
 	mlx_image_t	*img[HUD_SIZE];
 }	t_hud;
 
-//Sprite
-typedef struct s_sprite
-{
-	t_vec2d			pos;
-	mlx_texture_t	*tex;
-}	t_sprite;
-
-
 typedef struct t_fx
 {
 	float	splat_timer;
@@ -187,18 +184,39 @@ typedef struct s_render
 	t_hud		*hud;
 	t_inventory	*inv;
 	t_ray		rays[WIDTH];
-	double		z_buffer[WIDTH];
 	t_particle	splat[MAX_BLOOD_PARTICLES];
 	t_particle	blood[MAX_BLOOD_PARTICLES];
 	t_fx		fx;
-	t_sprite	*sprite;
 	float		headbob;
 	float		map_peak;
 	int			y_offset;
 	float		timer;
 	bool		b_timer;
 	float		headache_timer;
+	double		*zbuffer;
 }	t_render;
+
+typedef struct s_render_entity
+{
+	t_render	*render;
+	t_entity	*entity;
+	t_player	*player;
+	double		ent_x;
+	double		ent_y;
+	double		inv_det;
+	double		transform_x;
+	double		transform_y;
+	int			sprite_screen_x;
+	int			sprite_height;
+	int			draw_start_y;
+	int			draw_end_y;
+	int			sprite_width;
+	int			draw_start_x;
+	int			draw_end_x;
+	int			tex_width;
+	int			tex_height;
+}	t_render_entity;
+
 
 typedef struct s_wall	t_wall;
 
@@ -212,11 +230,6 @@ typedef struct s_wall
 	uint8_t			n_w;
 	uint8_t			n_cw;
 }	t_wall;
-
-typedef struct s_map	t_map;
-typedef struct s_player	t_player;
-typedef struct s_entity	t_entity;
-typedef struct s_app	t_app;
 
 //				Color
 int32_t			color(uint8_t r, uint8_t g, uint8_t b);
@@ -238,6 +251,7 @@ void			draw_sprites(t_render *render, t_map *map, t_player *player);
 void			render_entities(t_render *render, t_entity *entities, t_player *player);
 void			draw_equipped_weapon(t_inventory *inv);
 t_entity 		*spawn_blood(t_entity *head, t_player *player, uint8_t limb);
+void			draw_entity_strip(int strip, t_render_entity re);
 
 //				Draw shapes
 void			draw_line(mlx_image_t *image, uint32_t color, t_vec2i p1, t_vec2i p2);

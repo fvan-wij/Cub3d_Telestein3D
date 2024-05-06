@@ -57,6 +57,7 @@ SRCS	:= \
 		   render/draw_gradient.c \
 		   render/line.c		\
 		   render/color.c		\
+		   render/draw_entity.c	\
 		   render/entity.c		\
 		   render/dithering.c	\
 		   render/walls.c		\
