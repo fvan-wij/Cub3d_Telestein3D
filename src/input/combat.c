@@ -36,7 +36,7 @@ void	update_timers(t_fx *fx, float dt)
 		fx->splat_timer -= dt * 1000;
 	if (fx->splat_timer < 0)
 	{
-		fx->splat_timer = 150;
+		fx->splat_timer = 1000;
 		fx->splat = false;
 	}
 	fx->pulse_timer -= dt * 2;

@@ -1,5 +1,13 @@
 #include <cub3d.h>
 
+static void	cinematic_mode(t_app *cbd)
+{
+	draw_square(cbd->hud->img[HUD_OVERLAY], color(0, 0, 0),
+		vec2i(0, 0), vec2i(WIDTH, HEIGHT >> 3));
+	draw_square(cbd->hud->img[HUD_OVERLAY], color(0, 0, 0),
+		vec2i(0, HEIGHT - (HEIGHT >> 3)), vec2i(WIDTH, HEIGHT >> 3));
+}
+
 /*
 ** Renders the game
 	Needs:
@@ -25,12 +33,16 @@
 */
 void	cbd_render(t_app *cbd)
 {
-	draw_gradient_top(cbd->render.img, (t_rgba)cbd->mapdata->ceiling.color, (t_rgba)color(0,0,0), cbd->render.y_offset);
-	draw_gradient_bot(cbd->render.img, (t_rgba)color(0,0,0), (t_rgba)cbd->mapdata->floor.color, cbd->render.y_offset);
+	draw_gradient_top(cbd->render.img, (t_rgba)cbd->mapdata->ceiling.color,
+		(t_rgba)color(0, 0, 0), cbd->render.y_offset);
+	draw_gradient_bot(cbd->render.img, (t_rgba)color(0, 0, 0),
+		(t_rgba)cbd->mapdata->floor.color, cbd->render.y_offset);
 	cast_rays(cbd->mapdata->cbd_map, &cbd->render, &cbd->playerdata);
 	draw_walls(cbd->render, cbd->mapdata);
 	render_entities(&cbd->render, cbd->mapdata->entities, &cbd->playerdata);
-	draw_minimap(cbd->hud->img[HUD_MAP], cbd->playerdata.pos, cbd->mapdata->cbd_map, vec2i(cbd->mapdata->width, cbd->mapdata->height));
+	draw_minimap(cbd->hud->img[HUD_MAP], cbd->playerdata.pos,
+		cbd->mapdata->cbd_map,
+		vec2i(cbd->mapdata->width, cbd->mapdata->height));
 	draw_hud(cbd->hud, cbd->playerdata.inv);
 	draw_equipped_weapon(cbd->playerdata.inv);
 	draw_dust_particles(cbd->render.img, cbd->particles);
@@ -40,11 +52,6 @@ void	cbd_render(t_app *cbd)
 	draw_blood_particles(cbd->render.sprite_img,
 		cbd->render.blood, &cbd->render.fx);
 	if (cbd->state == STATE_BEHEAD)
-	{
-		draw_square(cbd->hud->img[HUD_OVERLAY], color(0, 0, 0),
-			vec2i(0, 0), vec2i(WIDTH, HEIGHT >> 3));
-		draw_square(cbd->hud->img[HUD_OVERLAY], color(0, 0, 0),
-			vec2i(0, HEIGHT - (HEIGHT >> 3)), vec2i(WIDTH, HEIGHT >> 3));
-	}
+		cinematic_mode(cbd);
 	screenshake(&cbd->render);
 }
