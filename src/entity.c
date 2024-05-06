@@ -34,121 +34,21 @@ void	move_entities(t_entity *ent, t_app *cbd)
 		if (ent->type == ENTITY_ENEMY)
 		{
 			if (tmp_ent->state == ENTITY_IDLE)
-				return;
+				return ;
 			new_pos = tmp_ent->pos;
-			new_pos = vec_add(new_pos, vec_mult(tmp_ent->dir, tmp_ent->speed * cbd->mlx->delta_time));
-			new_pos = resolve_collision(cbd->mapdata->cbd_map, tmp_ent->pos, tmp_ent->dir, new_pos);
+			new_pos = vec_add(new_pos, vec_mult(tmp_ent->dir,
+						tmp_ent->speed * cbd->mlx->delta_time));
+			new_pos = resolve_collision(cbd->mapdata->cbd_map,
+					tmp_ent->pos, tmp_ent->dir, new_pos);
 			tmp_ent->pos = new_pos;
 		}
 		tmp_ent = tmp_ent->next;
 	}
 }
 
-void	update_foreshadowing(t_entity *ent, float dt)
-{
-	t_vec2d		new_pos;
-
-	new_pos = ent->pos;
-	ent->dir = vec_assign(-1.0, 0.0);
-	new_pos = vec_add(new_pos, vec_mult(ent->dir, ent->speed * dt));
-	ent->pos = new_pos;
-}
-
-void	update_enemy(t_entity *ent, t_app *cbd)
-{
-	t_audio *audio;
-
-	audio = cbd->audio;
-	if (audio->t2 && ft_strncmp("trigger2", ent->name, 8) == 0)
-	{
-		update_foreshadowing(ent, cbd->mlx->delta_time);
-		if ((int) ent->pos.x < 21)
-			ent->enabled = false;
-	}
-	if (vec_distance(ent->pos, ent->destinations[ent->current_dest]) < 0.1)
-	{
-		ent->state = ENTITY_IDLE;
-		ent->current_dest++;
-		if (ent->current_dest == ent->n_dest)
-			ent->current_dest = 0;
-	}
-	if (vec_distance(cbd->playerdata.pos, ent->pos) < 10 && ft_strncmp("trigger2", ent->name, 8) != 0)
-	{
-		ent->state = ENTITY_AGROED;
-		cbd->mapdata->cbd_map[2][14] = '4';
-		cbd->checkpoint = true;
-		audio->chase = true;
-		ent->dir = vec_sub(cbd->playerdata.pos, ent->pos);
-		if (vec_distance(cbd->playerdata.pos, ent->pos) < 0.6)
-		{
-			if (cbd->playerdata.i_time <= 0)
-			{
-				ent->state = ENTITY_ATTACK;
-				audio->damage = true;
-				attack_player(ent, &cbd->playerdata, &cbd->render.fx);
-			}
-			ent->state = ENTITY_IDLE;
-		}
-	}
-	else if (vec_distance(ent->destinations[ent->current_dest], ent->pos) > 0.05)
-	{
-		ent->dir = vec_sub(ent->destinations[ent->current_dest], ent->pos);
-		ent->state = ENTITY_PATROL;
-	}
-	vec_normalize(&ent->dir);
-	// Determine if the entity is moving away from the player
-	// if (ent->health < 0)
-	// 	ent->enabled = false;
-	// else if (vec_dot(ent->dir, vec_sub(cbd->playerdata.pos, ent->pos)) < 0)
-	// 	ent->animation.current_animation = (11 - (int)ent->health + 1);
-	// else
-	// 	ent->animation.current_animation = (11 - (int)ent->health);
-	// printf("health: %d\n", ent->health);
-}
-
-void	update_item(t_entity *item, t_app *cbd)
-{
-	t_audio *audio;
-
-	audio = cbd->audio;
-	if (ft_strncmp(item->name, "chainsaw", 9) == 0 && item->enabled)
-	{
-		if (vec_distance(item->pos, cbd->playerdata.pos) < 0.5 && !cbd->playerdata.inv->weapons[WPN_CHAINSAW].in_inventory)
-		{
-			// Add [pickup sound]
-			cbd->playerdata.inv->weapons[WPN_CHAINSAW].in_inventory = true;
-			cbd->playerdata.inv->equipped = WPN_CHAINSAW;
-			item->enabled = false;
-			audio->pickup = true;
-		}
-	}
-	if (ft_strncmp(item->name, "fuel", 4) == 0 && item->enabled)
-	{
-		if (vec_distance(item->pos, cbd->playerdata.pos) < 0.5)
-		{
-			// Add [pickup sound]
-			cbd->playerdata.inv->weapons[WPN_CHAINSAW].ammo+=25;
-			item->enabled = false;
-			audio->pickup = true;
-		}
-	}
-	if (ft_strncmp(item->name, "po", 2) == 0 && item->enabled && item->dead)
-	{
-		if (vec_distance(item->pos, cbd->playerdata.pos) < 0.5 && !cbd->playerdata.inv->weapons[WPN_MAP].in_inventory)
-		{
-			// Add [pickup sound]
-			cbd->playerdata.inv->weapons[WPN_CHAINSAW].fire_animation->loop = false;
-			cbd->playerdata.inv->weapons[WPN_MAP].in_inventory = true;
-			// cbd->playerdata.inv->equipped = WPN_MAP;
-			item->enabled = false;
-			audio->pickup = true;
-		}
-	}
-}
-
 void	update_checkpoint(t_entity *ent, t_app *cbd)
 {
-	t_audio *audio;
+	t_audio	*audio;
 
 	audio = cbd->audio;
 	if (cbd->checkpoint)
@@ -157,10 +57,8 @@ void	update_checkpoint(t_entity *ent, t_app *cbd)
 	{
 		if (vec_distance(ent->pos, cbd->playerdata.pos) < 0.5)
 		{
-			// Add [checkpoint sound]
 			audio->checkpoint = true;
 			cbd->mapdata->cbd_map[2][14] = '4';
-			printf("Triggered checkpoint");
 		}
 	}
 }
@@ -182,22 +80,12 @@ void	update_entity(t_entity *ent, t_app *cbd)
 
 void	update_entities(t_app *cbd)
 {
-	t_entity 	*ent;
-	t_audio		*audio;
+	t_entity	*ent;
 
 	ent = cbd->mapdata->entities;
-	audio = cbd->audio;
 	while (ent)
 	{
 		update_entity(ent, cbd);
-		if (ft_strncmp("tv", ent->name, 2) == 0)
-			audio->tv = ent;
-		if (ft_strncmp("trigger1", ent->name, 8) == 0)
-			audio->trigger1 = ent;
-		if (ft_strncmp("trigger2", ent->name, 8) == 0)
-			audio->trigger2 = ent;
-		if (ft_strncmp("po", ent->name, 2) == 0)
-			audio->enemy = ent;
 		ent = ent->next;
 	}
 }

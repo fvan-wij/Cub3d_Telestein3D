@@ -30,32 +30,47 @@ static void	update_walking_sounds(t_audio *audio, enum e_player_state state)
 
 static void	handle_chainsaw_sound(t_audio *audio, t_inventory *inv)
 {
-	if (inv->weapons[inv->equipped].fire_animation->loop
+	if (inv->wpns[inv->equipped].use_anim->loop
 		&& inv->equipped == WPN_CHAINSAW)
 		loop_sound(audio, SND_SAW, false);
 	else
 		stop_sound(audio, SND_SAW);
 	if (inv->equipped == WPN_CHAINSAW
-		&& inv->weapons[WPN_CHAINSAW].fire_animation->loop == false
-		&& inv->weapons[WPN_CHAINSAW].ammo > 0)
+		&& inv->wpns[WPN_CHAINSAW].use_anim->loop == false
+		&& inv->wpns[WPN_CHAINSAW].ammo > 0)
 		loop_sound(audio, SND_SAW_IDLE, false);
 	else
 		stop_sound(audio, SND_SAW_IDLE);
 	if (ma_sound_is_playing(audio->sound[SND_SAW])
-		&& inv->weapons[WPN_CHAINSAW].ammo <= 0)
+		&& inv->wpns[WPN_CHAINSAW].ammo <= 0)
 	{
 		stop_sound(audio, SND_SAW);
 		play_sound(audio, SND_NO_FUEL2, 0.75f, 1.0f);
 	}
-	if (inv->weapons[WPN_CHAINSAW].ammo <= 0)
+	if (inv->wpns[WPN_CHAINSAW].ammo <= 0)
 	{
 		stop_sound(audio, SND_SAW);
 		stop_sound(audio, SND_SAW_IDLE);
 	}
 }
 
+static void	update_foreshadowing(t_audio *audio, t_entity *ent, float dt)
+{
+	t_vec2d		new_pos;
+
+	if (audio->t2)
+	{
+		new_pos = ent->pos;
+		ent->dir = vec_assign(-1.0, 0.0);
+		new_pos = vec_add(new_pos, vec_mult(ent->dir, ent->speed * dt));
+		ent->pos = new_pos;
+		if ((int) ent->pos.x < 21)
+			ent->enabled = false;
+	}
+}
+
 void	update_game_audio(t_audio *audio, t_inventory *inv,
-							enum e_player_state state)
+							enum e_player_state state, mlx_t *mlx)
 {
 	stop_sound(audio, SND_MENU);
 	stop_sound(audio, SND_GAME_OVER);
@@ -70,5 +85,6 @@ void	update_game_audio(t_audio *audio, t_inventory *inv,
 	play_pickup(audio);
 	play_chase(audio);
 	update_walking_sounds(audio, state);
+	update_foreshadowing(audio, audio->trigger2, mlx->delta_time);
 	handle_chainsaw_sound(audio, inv);
 }
