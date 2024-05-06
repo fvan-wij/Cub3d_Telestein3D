@@ -83,4 +83,8 @@ void 	play_jumpscare(t_audio *audio);
 void 	play_pickup(t_audio *audio);
 void	play_chase(t_audio *audio);
 
+//		beheading_audio.c
+void	start_sawing(t_app *cbd);
+void	stop_sawing(t_app *cbd);
+
 #endif

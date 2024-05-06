@@ -30,21 +30,16 @@ void	draw_blood_splat(mlx_image_t *img, t_particle *splat, t_fx *fx)
 	it = vec2i(0, 0);
 	if (!fx->splat)
 		return (fade_blood(img), init_blood_splat(splat));
-	while (it.x < MAX_BLOOD_PARTICLES)
+	while (it.x < MAX_BLOOD_PARTICLES && fx->splat)
 	{
 		particle = &splat[it.x];
-		if (fx->splat)
-		{
-			particle->size = vec_sub(particle->size, vec_assign(0.75, 0.75));
-			particle->p = vec_add(particle->p,
-					vec_assign(particle->dir.x * 5, particle->dir.y * 20));
-			if (particle->size.x <= 0 || particle->size.y <= 0)
-				it.y++;
-			draw_square_centered(img, color_rgba(125, 0, 0, 255),
+		particle->size = vec_sub(particle->size, vec_assign(0.75, 0.75));
+		particle->p = vec_add(particle->p,
+				vec_assign(particle->dir.x * 5, particle->dir.y * 20));
+		if (particle->size.x <= 0 || particle->size.y <= 0)
+			it.y++;
+		draw_square_centered(img, color_rgba(125, 0, 0, 255),
 				vec_to_int(particle->p), vec_to_int(particle->size));
-		}
-		else
-			break ;
 		it.x++;
 	}
 	if (it.y == MAX_BLOOD_PARTICLES)

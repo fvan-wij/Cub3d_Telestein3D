@@ -9,14 +9,11 @@ HEADERS	:= -I ./inc -I $(LIBMLX)/include/MLX42 -I $(LIBFT) -I $(MAUDIO)
 LIBS	:= $(LIBMLX)/build/libmlx42.a $(LIBFT)/libft.a -ldl -lglfw -lpthread -lm
 SRCS	:= \
 		   main.c 				\
-		   animation.c			\
 		   cbd_main.c			\
 		   cbd_render.c			\
 		   cbd_loop.c			\
-		   beheading.c			\
 		   error/error.c 		\
 		   entity.c				\
-		   player.c				\
 		   init/cbd_init.c		\
 		   init/init_inventory.c\
 		   init/init_menu.c		\
@@ -44,6 +41,10 @@ SRCS	:= \
 		   menu/menu_preview.c	\
 		   gameplay/item_pickup.c \
 		   gameplay/enemy_behaviour.c	\
+		   gameplay/beheading_audio.c \
+		   gameplay/beheading.c \
+		   gameplay/animation.c			\
+		   gameplay/player.c				\
 		   raycaster/raycaster.c\
 		   vec/vec.c			\
 		   vec/vec_operations.c	\

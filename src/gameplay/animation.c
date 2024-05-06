@@ -1,7 +1,6 @@
 #include <cub3d.h>
 #include <MLX42.h>
 #include <stdlib.h>
-#include <stdio.h>
 #include <math.h>
 
 void	play_single_animation(float dt, t_weapon *weapon)
