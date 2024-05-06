@@ -21,5 +21,6 @@ t_inventory	*cbd_init_inventory(mlx_t *mlx)
 		return (NULL);
 	if (!init_weapons(mlx, inv))
 		return (false);
+	inv->wpn[WPN_MAP].img->instances->z = 11;
 	return (inv);
 }

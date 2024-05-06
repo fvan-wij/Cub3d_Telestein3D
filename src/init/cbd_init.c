@@ -68,13 +68,13 @@ bool	cbd_init2(t_app *cbd)
 {
 	mlx_image_to_window(cbd->mlx, cbd->render.img, 0, 0);
 	mlx_image_to_window(cbd->mlx, cbd->render.sprite_img, 0, 0);
+	mlx_image_to_window(cbd->mlx, cbd->hud->img[HUD_CRT], 0, 0);
+	mlx_image_to_window(cbd->mlx, cbd->hud->img[HUD_PULSE], 0, 0);
 	mlx_image_to_window(cbd->mlx, cbd->hud->img[HUD_OVERLAY], 0, 0);
 	mlx_image_to_window(cbd->mlx, cbd->render.po_head, 0, 0);
 	mlx_image_to_window(cbd->mlx, cbd->hud->img[HUD_MAP],
-		(WIDTH >> 1) - (MINIMAP_WIDTH >> 2) - 16,
-		(HEIGHT >> 1) + (MINIMAP_HEIGHT >> 3) - 8);
-	mlx_image_to_window(cbd->mlx, cbd->hud->img[HUD_CRT], 0, 0);
-	mlx_image_to_window(cbd->mlx, cbd->hud->img[HUD_PULSE], 0, 0);
+			(WIDTH >> 1) - (MINIMAP_WIDTH >> 2) - 16,
+			(HEIGHT >> 1) + (MINIMAP_HEIGHT >> 3) - 8);
 	cbd->menudata = cbd_init_menu(cbd->mlx, cbd->mapdata);
 	if (!cbd->menudata)
 		return (cbd_error(ERR_ALLOC), FAILURE);

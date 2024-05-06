@@ -141,7 +141,7 @@ typedef struct s_inventory
 		WPN_MAP,
 		WPN_SIZE,
 	}			t_inv_items;
-	t_weapon	wpns[WPN_SIZE];
+	t_weapon	wpn[WPN_SIZE];
 	uint8_t		equipped;
 }	t_inventory;
 

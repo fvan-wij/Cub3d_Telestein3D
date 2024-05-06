@@ -55,18 +55,18 @@ t_animation	*load_weapon_animation(mlx_t *mlx, char *path)
 }
 
 // Function to initialize the different weapon animations
-bool	init_weapon_animations(mlx_t *mlx, t_weapon *wpns)
+bool	init_weapon_animations(mlx_t *mlx, t_weapon *wpn)
 {
-	wpns[WPN_FIST].use_anim = load_weapon_animation
+	wpn[WPN_FIST].use_anim = load_weapon_animation
 		(mlx, "./data/textures/player/animation/fist/frame_0.png");
-	if (!wpns[WPN_FIST].use_anim)
+	if (!wpn[WPN_FIST].use_anim)
 		return (false);
-	wpns[WPN_CHAINSAW].use_anim = load_weapon_animation
+	wpn[WPN_CHAINSAW].use_anim = load_weapon_animation
 		(mlx, "./data/textures/player/animation/chainsaw/frame_0.png");
-	if (!wpns[WPN_CHAINSAW].use_anim)
+	if (!wpn[WPN_CHAINSAW].use_anim)
 		return (false);
-	wpns[WPN_MAP].use_anim = ft_calloc(1, sizeof(t_animation));
-	if (!wpns[WPN_MAP].use_anim)
+	wpn[WPN_MAP].use_anim = ft_calloc(1, sizeof(t_animation));
+	if (!wpn[WPN_MAP].use_anim)
 		return (false);
 	return (true);
 }
@@ -75,47 +75,47 @@ bool	init_weapon_animations(mlx_t *mlx, t_weapon *wpns)
 // (Because of the norm, no other reason <_<)
 bool	init_weapons_b(mlx_t *mlx, t_inventory *inv)
 {
-	inv->wpns[WPN_CHAINSAW].use_anim->frames[1].img->instances->x += 150;
-	inv->wpns[WPN_CHAINSAW].use_anim->frames[1].img->instances->y -= 100;
-	mlx_delete_image(mlx, inv->wpns[WPN_CHAINSAW].use_anim->frames[2].img);
-	inv->wpns[WPN_CHAINSAW].use_anim->frames[2] = \
-	inv->wpns[WPN_CHAINSAW].use_anim->frames[0];
-	inv->wpns[WPN_CHAINSAW].use_anim->reset_x = \
-	inv->wpns[WPN_CHAINSAW].use_anim->frames[1].img->instances->x;
-	inv->wpns[WPN_CHAINSAW].use_anim->current_x = \
-	inv->wpns[WPN_CHAINSAW].use_anim->reset_x;
-	inv->wpns[WPN_CHAINSAW].in_inventory = false;
-	inv->wpns[WPN_MAP].in_inventory = false;
-	mlx_image_to_window(mlx, inv->wpns[WPN_MAP].img, \
+	inv->wpn[WPN_CHAINSAW].use_anim->frames[1].img->instances->x += 150;
+	inv->wpn[WPN_CHAINSAW].use_anim->frames[1].img->instances->y -= 100;
+	mlx_delete_image(mlx, inv->wpn[WPN_CHAINSAW].use_anim->frames[2].img);
+	inv->wpn[WPN_CHAINSAW].use_anim->frames[2] = \
+	inv->wpn[WPN_CHAINSAW].use_anim->frames[0];
+	inv->wpn[WPN_CHAINSAW].use_anim->reset_x = \
+	inv->wpn[WPN_CHAINSAW].use_anim->frames[1].img->instances->x;
+	inv->wpn[WPN_CHAINSAW].use_anim->current_x = \
+	inv->wpn[WPN_CHAINSAW].use_anim->reset_x;
+	inv->wpn[WPN_CHAINSAW].in_inventory = false;
+	inv->wpn[WPN_MAP].in_inventory = false;
+	mlx_image_to_window(mlx, inv->wpn[WPN_MAP].img, \
 	(WIDTH >> 2), (HEIGHT >> 3));
-	mlx_image_to_window(mlx, inv->wpns[WPN_FIST].img, \
-	(WIDTH / 2) - (inv->wpns[WPN_FIST].img->width / 2), \
-	HEIGHT - (inv->wpns[WPN_FIST].img->height) + 200);
-	mlx_image_to_window(mlx, inv->wpns[WPN_CHAINSAW].img, \
-	(WIDTH >> 1) - (inv->wpns[WPN_CHAINSAW].img->width / 2), \
-	HEIGHT - (inv->wpns[WPN_CHAINSAW].img->height * 0.8));
-	inv->wpns[WPN_MAP].img->enabled = false;
-	inv->wpns[WPN_FIST].img->enabled = false;
-	inv->wpns[WPN_CHAINSAW].img->enabled = false;
-	inv->wpns[WPN_FIST].img->instances->z = 11;
-	inv->wpns[WPN_CHAINSAW].img->instances->z = 11;
+	mlx_image_to_window(mlx, inv->wpn[WPN_FIST].img, \
+	(WIDTH / 2) - (inv->wpn[WPN_FIST].img->width / 2), \
+	HEIGHT - (inv->wpn[WPN_FIST].img->height) + 200);
+	mlx_image_to_window(mlx, inv->wpn[WPN_CHAINSAW].img, \
+	(WIDTH >> 1) - (inv->wpn[WPN_CHAINSAW].img->width / 2), \
+	HEIGHT - (inv->wpn[WPN_CHAINSAW].img->height * 0.8));
+	inv->wpn[WPN_MAP].img->enabled = false;
+	inv->wpn[WPN_FIST].img->enabled = false;
+	inv->wpn[WPN_CHAINSAW].img->enabled = false;
+	inv->wpn[WPN_FIST].img->instances->z = 11;
+	inv->wpn[WPN_CHAINSAW].img->instances->z = 11;
 	return (true);
 }
 
 bool	init_weapons(mlx_t *mlx, t_inventory *inv)
 {
-	t_weapon	*wpns;
+	t_weapon	*wpn;
 
-	wpns = inv->wpns;
-	wpns[WPN_FIST].img = cbd_init_texture_img
+	wpn = inv->wpn;
+	wpn[WPN_FIST].img = cbd_init_texture_img
 		(mlx, "./data/textures/player/hands2.png");
-	wpns[WPN_MAP].img = cbd_init_texture_img
+	wpn[WPN_MAP].img = cbd_init_texture_img
 		(mlx, "./data/textures/player/radar4.png");
-	wpns[WPN_CHAINSAW].img = cbd_init_texture_img
+	wpn[WPN_CHAINSAW].img = cbd_init_texture_img
 		(mlx, "./data/textures/player/chainsaw.png");
-	wpns[WPN_FIST].type = WPN_FIST;
-	wpns[WPN_CHAINSAW].type = WPN_CHAINSAW;
-	if (!init_weapon_animations(mlx, wpns))
+	wpn[WPN_FIST].type = WPN_FIST;
+	wpn[WPN_CHAINSAW].type = WPN_CHAINSAW;
+	if (!init_weapon_animations(mlx, wpn))
 		return (false);
 	return (init_weapons_b(mlx, inv));
 }

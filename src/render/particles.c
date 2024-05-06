@@ -27,7 +27,7 @@ void	draw_blood_splat(mlx_image_t *img, t_particle *splat, t_fx *fx)
 	t_vec2i		it;
 	t_particle	*particle;
 
-	it = vec2i_assign(0, 0);
+	it = vec2i(0, 0);
 	if (!fx->splat)
 		return (fade_blood(img), init_blood_splat(splat));
 	while (it.x < MAX_BLOOD_PARTICLES)

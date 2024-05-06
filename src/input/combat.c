@@ -7,7 +7,7 @@ void	deal_damage(t_app *cbd)
 {
 	t_weapon	*weapon;
 
-	weapon = &cbd->playerdata.inv->wpns[WPN_CHAINSAW];
+	weapon = &cbd->playerdata.inv->wpn[WPN_CHAINSAW];
 	if (weapon->ammo <= 0)
 		return ;
 	if ((mlx_is_key_down(cbd->mlx, MLX_KEY_SPACE)

@@ -80,16 +80,16 @@ void	play_weapon_animation(mlx_t	*mlx, t_inventory *inv)
 {
 	t_weapon	*weapon;
 
-	weapon = &inv->wpns[inv->equipped];
+	weapon = &inv->wpn[inv->equipped];
 	if (!weapon)
 		return ;
 	if (inv->equipped == WPN_MAP)
-		reset_animation(&inv->wpns[WPN_CHAINSAW]);
+		reset_animation(&inv->wpn[WPN_CHAINSAW]);
 	if (weapon->use_anim->loop)
 	{
-		inv->wpns[inv->equipped].img->enabled = false;
+		inv->wpn[inv->equipped].img->enabled = false;
 		update_animation(mlx, weapon);
 	}
 	else
-		reset_animation(&inv->wpns[inv->equipped]);
+		reset_animation(&inv->wpn[inv->equipped]);
 }

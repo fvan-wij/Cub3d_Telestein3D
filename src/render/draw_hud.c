@@ -5,7 +5,7 @@ void	draw_player(mlx_image_t *img)
 	const float	r = (TILESIZE) >> 5;
 
 	draw_circle(img, color(100, 255, 100),
-		vec2i_assign((float)(img->width >> 1),
+		vec2i((float)(img->width >> 1),
 			(float)(img->height >> 1)), r);
 }
 
@@ -37,8 +37,8 @@ void	draw_minimap(mlx_image_t *hud_map, t_vec2d pos,
 	uint16_t	x;
 	t_vec2d		offset;
 
-	draw_square(hud_map, color_rgba(200, 200, 200, 200), vec2i_assign(0, 0),
-		vec2i_assign(hud_map->width, hud_map->height));
+	draw_square(hud_map, color_rgba(200, 200, 200, 200), vec2i(0, 0),
+		vec2i(hud_map->width, hud_map->height));
 	offset.x = -(((pos.x / MINIMAP_WIDTH) * MINIMAP_WIDTH) * tile_h)
 		+ (MINIMAP_WIDTH >> 1);
 	offset.y = -(((pos.y / MINIMAP_HEIGHT) * MINIMAP_HEIGHT) * tile_h)
@@ -49,7 +49,7 @@ void	draw_minimap(mlx_image_t *hud_map, t_vec2d pos,
 		x = 0;
 		while (x < size.x)
 		{
-			draw_tile(hud_map, offset, map, vec2i_assign(x, y));
+			draw_tile(hud_map, offset, map, vec2i(x, y));
 			x++;
 		}
 		y++;

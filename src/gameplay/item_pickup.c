@@ -7,9 +7,9 @@ static void	pick_up_chainsaw(t_entity *item, t_app *cbd)
 
 	audio = cbd->audio;
 	if (vec_distance(item->pos, cbd->playerdata.pos) < 0.5
-		&& !cbd->playerdata.inv->wpns[WPN_CHAINSAW].in_inventory)
+		&& !cbd->playerdata.inv->wpn[WPN_CHAINSAW].in_inventory)
 	{
-		cbd->playerdata.inv->wpns[WPN_CHAINSAW].in_inventory = true;
+		cbd->playerdata.inv->wpn[WPN_CHAINSAW].in_inventory = true;
 		cbd->playerdata.inv->equipped = WPN_CHAINSAW;
 		item->enabled = false;
 		audio->pickup = true;
@@ -23,7 +23,7 @@ static void	pick_up_fuel(t_entity *item, t_app *cbd)
 	audio = cbd->audio;
 	if (vec_distance(item->pos, cbd->playerdata.pos) < 0.5)
 	{
-		cbd->playerdata.inv->wpns[WPN_CHAINSAW].ammo += 25;
+		cbd->playerdata.inv->wpn[WPN_CHAINSAW].ammo += 25;
 		item->enabled = false;
 		audio->pickup = true;
 	}
@@ -35,10 +35,10 @@ static void	pick_up_map(t_entity *item, t_app *cbd)
 
 	audio = cbd->audio;
 	if (vec_distance(item->pos, cbd->playerdata.pos) < 0.5
-		&& !cbd->playerdata.inv->wpns[WPN_MAP].in_inventory)
+		&& !cbd->playerdata.inv->wpn[WPN_MAP].in_inventory)
 	{
-		cbd->playerdata.inv->wpns[WPN_CHAINSAW].use_anim->loop = false;
-		cbd->playerdata.inv->wpns[WPN_MAP].in_inventory = true;
+		cbd->playerdata.inv->wpn[WPN_CHAINSAW].use_anim->loop = false;
+		cbd->playerdata.inv->wpn[WPN_MAP].in_inventory = true;
 		item->enabled = false;
 		audio->pickup = true;
 	}

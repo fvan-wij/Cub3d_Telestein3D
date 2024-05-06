@@ -6,19 +6,15 @@ static void	switch_item(mlx_t *mlx, t_inventory *inv, t_audio *audio)
 {
 	const uint8_t	current_wpn = inv->equipped;
 
-<<<<<<< HEAD
-	if (!inv->weapons[inv->equipped].fire_animation->loop)
-=======
-	if (!inv->wpns[inv->equipped].use_anim->loop)
->>>>>>> cub3d_eval
+	if (!inv->wpn[inv->equipped].use_anim->loop)
 	{
 		if (mlx_is_key_down(mlx, MLX_KEY_1))
 			inv->equipped = WPN_FIST;
 		if (mlx_is_key_down(mlx, MLX_KEY_2)
-			&& inv->wpns[WPN_CHAINSAW].in_inventory)
+			&& inv->wpn[WPN_CHAINSAW].in_inventory)
 			inv->equipped = WPN_CHAINSAW;
 		if (mlx_is_key_down(mlx, MLX_KEY_M)
-			&& inv->wpns[WPN_MAP].in_inventory)
+			&& inv->wpn[WPN_MAP].in_inventory)
 			inv->equipped = WPN_MAP;
 		if (current_wpn != inv->equipped)
 			play_sound(audio, SND_SEARCH, 3.5f, 1.0f);
@@ -53,13 +49,13 @@ static void	handle_fire_input(t_inventory *inv, mlx_key_data_t keydata,
 				destroy_wall(cbd->mapdata, &cbd->playerdata, cbd->audio);
 			}
 			if (inv->equipped == WPN_CHAINSAW
-				&& inv->wpns[WPN_CHAINSAW].ammo <= 0)
+				&& inv->wpn[WPN_CHAINSAW].ammo <= 0)
 				play_sound(audio, SND_NO_FUEL, 1.0f, 1.0f);
-			inv->wpns[inv->equipped].use_anim->loop = true;
+			inv->wpn[inv->equipped].use_anim->loop = true;
 		}
 		if (keydata.action == MLX_RELEASE && inv->equipped == WPN_CHAINSAW)
 		{
-			inv->wpns[WPN_CHAINSAW].use_anim->loop = false;
+			inv->wpn[WPN_CHAINSAW].use_anim->loop = false;
 			stop_sound(audio, SND_SAW);
 		}
 	}
