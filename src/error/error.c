@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   error.c                                            :+:    :+:            */
+/*   error.c                                           :+:    :+:             */
 /*                                                     +:+                    */
 /*   By: dritsema <dritsema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/16 15:23:37 by dritsema      #+#    #+#                 */
-/*   Updated: 2024/04/16 15:29:07 by dritsema      ########   odam.nl         */
+/*   Updated: 2024/05/07 12:46:54 by fvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <cbd_error.h>
 #include <unistd.h>
 
-int	cbd_error(e_err err_msg)
+int	cbd_error(t_err err_msg)
 {
 	const char	*g_error[ERR_SIZE + 1] = \
 	{

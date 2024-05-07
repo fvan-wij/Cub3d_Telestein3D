@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                       ::::::::             */
+/*   cbd_error.h                                       :+:    :+:             */
+/*                                                    +:+                     */
+/*   By: fvan-wij <marvin@42.fr>                     +#+                      */
+/*                                                  +#+                       */
+/*   Created: 2024/05/07 12:18:16 by fvan-wij      #+#    #+#                 */
+/*   Updated: 2024/05/07 12:46:19 by fvan-wij      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CBD_ERROR_H
 # define CBD_ERROR_H
 
@@ -6,7 +18,8 @@
 # define SUCCESS 0
 # define FAILURE 1
 
-typedef enum e_err {
+typedef enum e_err
+{
 	INVALID_ARGC,
 	INVALID_EXTENSION,
 	ERR_OPEN,
@@ -20,9 +33,9 @@ typedef enum e_err {
 	ERR_LOAD_MAP,
 	ERR_MAPCONTENT_SEQUENCE,
 	ERR_SIZE,
-} e_err;
+}	t_err;
 
-int		cbd_error(e_err err_msg);
+int		cbd_error(t_err err_msg);
 bool	arg_is_valid(int argc, char *argv[]);
 bool	extension_is_valid(char *file);
 

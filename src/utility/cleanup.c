@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                       ::::::::             */
+/*   cleanup.c                                         :+:    :+:             */
+/*                                                    +:+                     */
+/*   By: fvan-wij <marvin@42.fr>                     +#+                      */
+/*                                                  +#+                       */
+/*   Created: 2024/05/07 12:12:39 by fvan-wij      #+#    #+#                 */
+/*   Updated: 2024/05/07 12:12:40 by fvan-wij      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <cub3d.h>
 #include <libft.h>
 #include <MLX42.h>
@@ -60,16 +72,11 @@ void	cleanup_menu(t_menu *menu)
 	free(menu);
 }
 
-void	cleanup_render(t_render render)
-{
-	free(render.zbuffer);
-}
-
 void	cleanup(t_app *app)
 {
 	if (app->mapdata)
 		cleanup_map(app->mapdata);
 	if (app->menudata)
 		cleanup_menu(app->menudata);
-	cleanup_render(app->render);
+	free(app->render.zbuffer);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                       ::::::::             */
+/*   cbd_audio.h                                       :+:    :+:             */
+/*                                                    +:+                     */
+/*   By: fvan-wij <marvin@42.fr>                     +#+                      */
+/*                                                  +#+                       */
+/*   Created: 2024/05/07 12:14:23 by fvan-wij      #+#    #+#                 */
+/*   Updated: 2024/05/07 12:18:09 by fvan-wij      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CBD_AUDIO_H
 # define CBD_AUDIO_H
 
@@ -6,7 +18,8 @@
 # include <stdbool.h>
 # include <stdint.h>
 
-typedef enum s_sounds {
+typedef enum s_sounds
+{
 	SND_WALK_SOLID,
 	SND_WALK_GRASS,
 	SND_MENU,
@@ -40,11 +53,12 @@ typedef enum s_sounds {
 	SND_GAME_OVER,
 	SND_BUSH,
 	SND_SIZE,
-} t_sounds;
+}	t_sounds;
 
-enum e_player_state;
+enum	e_player_state;
 
-typedef struct s_audio {
+typedef struct s_audio
+{
 	ma_sound	*sound[SND_SIZE];
 	ma_engine	*engine;
 	bool		is_initialized;
@@ -65,8 +79,10 @@ typedef struct s_audio {
 //		cbd_audio.c
 t_audio	*cbd_init_audio(void);
 void	cbd_uninit_audio(t_audio *audio);
-void	play_sound(const t_audio *audio, uint8_t type, float volume, float pitch);
-void	loop_sound(const t_audio *audio, uint8_t type, bool alternate);
+void	play_sound(const t_audio *audio, uint8_t type,
+			float volume, float pitch);
+void	loop_sound(const t_audio *audio, uint8_t type,
+			bool alternate);
 void	stop_sound(const t_audio *audio, uint8_t type);
 void	reset_sounds(const t_audio *audio);
 
@@ -74,13 +90,14 @@ void	reset_sounds(const t_audio *audio);
 void	update_menu_audio(t_audio *audio, t_app *cbd);
 
 //		game_audio.c
-void	update_game_audio(t_audio *audio, t_inventory *inv, enum e_player_state state, mlx_t *mlx);
+void	update_game_audio(t_audio *audio, t_inventory *inv,
+			enum e_player_state state, mlx_t *mlx);
 
 //		play_cues.c
 void	play_walk_sound(t_audio *audio, float dt);
 void	take_damage(t_audio *audio);
-void 	play_jumpscare(t_audio *audio);
-void 	play_pickup(t_audio *audio);
+void	play_jumpscare(t_audio *audio);
+void	play_pickup(t_audio *audio);
 void	play_chase(t_audio *audio);
 
 //		beheading_audio.c

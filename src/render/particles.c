@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   particles.c                                        :+:    :+:            */
+/*   particles.c                                       :+:    :+:             */
 /*                                                     +:+                    */
 /*   By: dritsema <dritsema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/06 16:33:29 by dritsema      #+#    #+#                 */
-/*   Updated: 2024/05/06 16:33:30 by dritsema      ########   odam.nl         */
+/*   Updated: 2024/05/07 12:04:33 by fvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	draw_blood_splat(mlx_image_t *img, t_particle *splat, t_fx *fx)
 		if (particle->size.x <= 0 || particle->size.y <= 0)
 			it.y++;
 		draw_square_centered(img, color_rgba(125, 0, 0, 255),
-				vec_to_int(particle->p), vec_to_int(particle->size));
+			vec_to_int(particle->p), vec_to_int(particle->size));
 		it.x++;
 	}
 	if (it.y == MAX_BLOOD_PARTICLES)
