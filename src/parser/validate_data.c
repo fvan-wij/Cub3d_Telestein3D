@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       ::::::::             */
-/*   validate_data.c                                   :+:    :+:             */
-/*                                                    +:+                     */
-/*   By: fvan-wij <marvin@42.fr>                     +#+                      */
-/*                                                  +#+                       */
+/*                                                        ::::::::            */
+/*   validate_data.c                                    :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: fvan-wij <marvin@42.fr>                      +#+                     */
+/*                                                   +#+                      */
 /*   Created: 2024/05/07 12:10:14 by fvan-wij      #+#    #+#                 */
-/*   Updated: 2024/05/07 13:32:29 by fvan-wij      ########   odam.nl         */
+/*   Updated: 2024/05/07 19:19:53 by dritsema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,12 @@ bool	validate_map_data(t_map *mapdata, t_valid *is)
 		return (cbd_error(ERR_INVALID_START), false);
 	mapdata->cbd_map = copy_map(mapdata);
 	if (!mapdata->cbd_map)
-		return (cbd_error(ERR_ALLOC), ft_del_2d(mapdata->raw_data), false);
+		return (cbd_error(ERR_ALLOC), false);
 	if (mapdata->is_bonus && !wall_is_valid_bonus(mapdata, mapdata->start_pos.y,
 			mapdata->start_pos.x))
-		return (cbd_error(ERR_INVALID_WALL), ft_del_2d(mapdata->raw_data),
-			false);
+		return (cbd_error(ERR_INVALID_WALL), false);
 	else if (!wall_is_valid(mapdata, mapdata->start_pos.y,
 			mapdata->start_pos.x))
-		return (cbd_error(ERR_INVALID_WALL), ft_del_2d(mapdata->raw_data),
-			false);
+		return (cbd_error(ERR_INVALID_WALL), false);
 	return (true);
 }

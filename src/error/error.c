@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   error.c                                           :+:    :+:             */
+/*   error.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dritsema <dritsema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/16 15:23:37 by dritsema      #+#    #+#                 */
-/*   Updated: 2024/05/07 12:46:54 by fvan-wij      ########   odam.nl         */
+/*   Updated: 2024/05/07 19:03:21 by dritsema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	cbd_error(t_err err_msg)
 	[ERR_OPEN] = "Cub3d Error: could not open file",
 	[ERR_ALLOC] = "Cub3d Error: error allocating memory",
 	[ERR_INVALID_MAP] = "Cub3d Error: map is invalid",
+	[ERR_INVALID_MAP_CHAR] = "Cub3d Error: map contains invalid characters",
 	[ERR_INVALID_WALL] = "Cub3d Error: map is invalid (open wall detected)",
 	[ERR_INVALID_START] = "Cub3d Error: start position is invalid",
 	[ERR_FILE_INEXISTS] = "Cub3d Error: texture does not exist",

@@ -88,7 +88,7 @@ OBJS	:= $(addprefix $(OBJDIR)/,$(SRCS:.c=.o))
 SRCS	:= $(addprefix $(SRCDIR)/,$(SRCS))
 
 ifdef DEBUG
-	CC += -g
+	CC += -g -fsanitize=address
 	LIBFT_DEBUG += DEBUG=1
 endif
 

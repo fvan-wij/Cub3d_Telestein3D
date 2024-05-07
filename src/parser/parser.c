@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       ::::::::             */
-/*   parser.c                                          :+:    :+:             */
-/*                                                    +:+                     */
-/*   By: fvan-wij <marvin@42.fr>                     +#+                      */
-/*                                                  +#+                       */
+/*                                                        ::::::::            */
+/*   parser.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: fvan-wij <marvin@42.fr>                      +#+                     */
+/*                                                   +#+                      */
 /*   Created: 2024/05/07 12:10:11 by fvan-wij      #+#    #+#                 */
-/*   Updated: 2024/05/07 12:10:12 by fvan-wij      ########   odam.nl         */
+/*   Updated: 2024/05/07 19:17:20 by dritsema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cbd_error.h>
 #include <cbd_parser.h>
 #include <fcntl.h>
+#include <cub3d.h>
 
 /*
 ** Opens map and returns the fd
@@ -79,7 +80,7 @@ t_map	*cbd_parse_map(const char *file)
 		return (NULL);
 	mapdata->valid = validate_map_data(mapdata, &is);
 	if (!mapdata->valid)
-		return (NULL);
+		return (cleanup_map(mapdata), NULL);
 	mapdata->current_map = set_current_map(file);
 	return (mapdata);
 }

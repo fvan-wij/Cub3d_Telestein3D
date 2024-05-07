@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       ::::::::             */
-/*   cbd_error.h                                       :+:    :+:             */
-/*                                                    +:+                     */
-/*   By: fvan-wij <marvin@42.fr>                     +#+                      */
-/*                                                  +#+                       */
+/*                                                        ::::::::            */
+/*   cbd_error.h                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: fvan-wij <marvin@42.fr>                      +#+                     */
+/*                                                   +#+                      */
 /*   Created: 2024/05/07 12:18:16 by fvan-wij      #+#    #+#                 */
-/*   Updated: 2024/05/07 12:46:19 by fvan-wij      ########   odam.nl         */
+/*   Updated: 2024/05/07 19:03:19 by dritsema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef enum e_err
 	ERR_OPEN,
 	ERR_ALLOC,
 	ERR_INVALID_MAP,
+	ERR_INVALID_MAP_CHAR,
 	ERR_INVALID_WALL,
 	ERR_INVALID_START,
 	ERR_FILE_INEXISTS,
