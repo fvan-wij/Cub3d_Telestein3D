@@ -6,7 +6,7 @@
 /*   By: fvan-wij <marvin@42.fr>                     +#+                      */
 /*                                                  +#+                       */
 /*   Created: 2024/05/07 12:10:14 by fvan-wij      #+#    #+#                 */
-/*   Updated: 2024/05/07 12:10:15 by fvan-wij      ########   odam.nl         */
+/*   Updated: 2024/05/07 13:32:29 by fvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ static char	**copy_map(t_map *mapdata)
 	while (i < (size_t)mapdata->height)
 	{
 		cbd_map[i] = ft_calloc(sizeof(char), mapdata->width + 1);
-		ft_strcpy(cbd_map[i], mapdata->raw_data[i]);
+		ft_strlcpy(cbd_map[i], mapdata->raw_data[i],
+			ft_strlen(mapdata->raw_data[i]));
 		i++;
 	}
 	return (cbd_map);
