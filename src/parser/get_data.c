@@ -1,5 +1,5 @@
-#include <cbd_parser.h>
 #include <cbd_error.h>
+#include <cbd_parser.h>
 #include <fcntl.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -12,7 +12,7 @@
 */
 static void	retrieve_element(char *line, t_map *mapdata)
 {
-	int 	i;
+	size_t	i;
 	char	**temp;
 
 	temp = ft_split(line, ' ');
@@ -39,7 +39,6 @@ static void	retrieve_element(char *line, t_map *mapdata)
 t_map	*get_map_data_mandatory(int fd, t_valid *is, char *line)
 {
 	t_map	*mapdata;
-	ft_printf("MAndATORY!!!\n");
 
 	mapdata = alloc_map();
 	if (!mapdata)
@@ -79,7 +78,7 @@ t_map	*get_map_data_mandatory(int fd, t_valid *is, char *line)
 */
 t_map	*get_map_data(int fd, t_valid *is)
 {
-	char 	*line;
+	char	*line;
 	t_map	*mapdata;
 
 	line = get_next_line(fd);

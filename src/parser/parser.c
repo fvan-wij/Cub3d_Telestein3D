@@ -1,11 +1,6 @@
-#include <libft.h>
-#include <cbd_parser.h>
 #include <cbd_error.h>
-#include <stdbool.h>
-#include <stdlib.h>
+#include <cbd_parser.h>
 #include <fcntl.h>
-#include <unistd.h>
-#include <stdio.h>
 
 /*
 ** Opens map and returns the fd
@@ -16,14 +11,13 @@
 */
 static int	open_map(const char *file)
 {
-	int fd;
+	int	fd;
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		return (cbd_error(ERR_OPEN), fd);
 	return (fd);
 }
-
 
 /*
 ** Checks the file name of the map, and returns the LVL_ENUM
@@ -34,7 +28,7 @@ static int	open_map(const char *file)
 */
 uint8_t	set_current_map(const char *file)
 {
-	char *temp;
+	char	*temp;
 
 	temp = ft_strrchr(file, '/');
 	if (ft_strncmp(temp, "/dark_secret.cub", ft_strlen(temp)) == 0)
@@ -60,7 +54,7 @@ uint8_t	set_current_map(const char *file)
 */
 t_map	*cbd_parse_map(const char *file)
 {
-	int 	fd;
+	int		fd;
 	t_map	*mapdata;
 	t_valid	is;
 

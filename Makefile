@@ -1,6 +1,6 @@
 NAME	:= cub3d
-# CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast
-CFLAGS	:= -Wextra -Wall -Wunreachable-code -O2
+CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -O2
+# CFLAGS	:= -Wextra -Wall -Wunreachable-code -O2
 LIBMLX	:= ./lib/MLX42
 LIBFT	:= ./lib/libft
 MAUDIO	:= ./lib/miniaudio
@@ -21,6 +21,7 @@ SRCS	:= \
 		   init/init_weapons.c	\
 		   init/init_particles.c\
 		   init/audio_trigger_init.c \
+		   init/load_animation.c		\
 		   audio/game_audio.c	\
 		   audio/init_audio.c	\
 		   audio/menu_audio.c	\
@@ -31,9 +32,13 @@ SRCS	:= \
 		   parser/init.c 		\
 		   parser/get_data.c 	\
 		   parser/get_data_bonus.c\
-		   parser/bools.c		\
+		   parser/bools_cub.c	\
+		   parser/bools_map.c	\
 		   parser/getters.c		\
+		   parser/append_entity.c\
 		   parser/validate_data.c \
+		   parser/bools_validate.c\
+		   parser/bools_bonus.c	\
 		   menu/menu_navigation.c\
 		   menu/menu_setters.c	\
 		   menu/menu_loadmap.c	\

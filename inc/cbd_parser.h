@@ -125,6 +125,7 @@ t_map	*alloc_map_bonus(void);
 t_map	*load_map(t_map *curr_map, uint8_t	map_id);
 uint8_t	set_current_map(const char *file);
 void	respawn(t_app *cbd);
+t_entity	*append_entity(t_entity *entities, char *line, uint8_t type);
 
 //		Bools.c
 bool	is_tex(char *line, t_valid *is);
@@ -135,6 +136,14 @@ bool	is_wall(char c);
 bool	is_wall_bonus(char c);
 bool	is_bonus(int fd);
 bool	tex_exists(char *path);
+bool	is_mapcontent(char *line);
+
+//		bools_validate.c
+bool	wall_is_valid(t_map *mapdata, int i, int j);
+bool	wall_is_valid_bonus(t_map *mapdata, int i, int j);
+bool	is_duplicate(t_valid *is, t_map *mapdata);
+bool	is_player(char c, t_map *mapdata, t_valid *is);
+bool	start_is_valid(t_map *mapdata, t_valid *is);
 
 //				Getters.c
 char			*get_texpath(char *temp);
