@@ -41,7 +41,8 @@ static t_map	*initialize_jump_table(t_map *mapdata)
 	{
 		if (mapdata->walls.w_path[(unsigned char)i])
 		{
-			mapdata->walls.w_tex[(unsigned char)i] = mlx_load_png(mapdata->walls.w_path[(unsigned char)i]);
+			mapdata->walls.w_tex[(unsigned char)i]
+				= mlx_load_png(mapdata->walls.w_path[(unsigned char)i]);
 			if (!mapdata->walls.w_tex[(unsigned char)i])
 				return (NULL);
 		}

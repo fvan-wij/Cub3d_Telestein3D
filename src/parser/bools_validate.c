@@ -66,7 +66,7 @@ bool	wall_is_valid_bonus(t_map *mapdata, int i, int j)
 		return (false);
 	mapdata->raw_data[i][j] = FILL;
 	if (err && (i + 1) <= (lh - 1) && !is_wall_bonus(mapdata->raw_data[i
-			+ 1][j]) && mapdata->raw_data[i + 1][j] != FILL)
+				+ 1][j]) && mapdata->raw_data[i + 1][j] != FILL)
 		err = wall_is_valid(mapdata, i + 1, j);
 	if (err && (j + 1) <= (lw - 1) && !is_wall_bonus(mapdata->raw_data[i][j
 			+ 1]) && mapdata->raw_data[i][j + 1] != FILL)
@@ -101,8 +101,8 @@ bool	is_duplicate(t_valid *is, t_map *mapdata)
 			count++;
 		i++;
 	}
-	if (count >= 1 && (mapdata->start_pos.x != -1 || mapdata->start_pos.y !=
-			-1))
+	if (count >= 1 && (mapdata->start_pos.x != -1
+			|| mapdata->start_pos.y != -1))
 		return (true);
 	return (false);
 }

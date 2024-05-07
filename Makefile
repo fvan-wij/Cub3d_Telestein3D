@@ -18,6 +18,7 @@ SRCS	:= \
 		   entity.c				\
 		   player.c				\
 		   init/cbd_init.c		\
+		   init/load_animation.c		\
 		   audio/game_audio.c	\
 		   audio/menu_audio.c	\
 		   audio/cbd_audio.c 	\
