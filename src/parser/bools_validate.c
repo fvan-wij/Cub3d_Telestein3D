@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       ::::::::             */
-/*   bools_validate.c                                  :+:    :+:             */
-/*                                                    +:+                     */
-/*   By: fvan-wij <marvin@42.fr>                     +#+                      */
-/*                                                  +#+                       */
+/*                                                        ::::::::            */
+/*   bools_validate.c                                   :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: fvan-wij <marvin@42.fr>                      +#+                     */
+/*                                                   +#+                      */
 /*   Created: 2024/05/07 12:09:52 by fvan-wij      #+#    #+#                 */
-/*   Updated: 2024/05/07 12:09:53 by fvan-wij      ########   odam.nl         */
+/*   Updated: 2024/05/07 19:32:14 by dritsema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,8 @@ bool	start_is_valid(t_map *mapdata, t_valid *is)
 		}
 		i++;
 	}
+	if (mapdata->start_pos.x == -1 || mapdata->start_pos.y == -1)
+		return (false);
 	mapdata->height = i;
 	return (true);
 }
