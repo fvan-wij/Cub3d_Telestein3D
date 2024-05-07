@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       ::::::::             */
-/*   init.c                                            :+:    :+:             */
-/*                                                    +:+                     */
-/*   By: fvan-wij <marvin@42.fr>                     +#+                      */
-/*                                                  +#+                       */
+/*                                                        ::::::::            */
+/*   init.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: fvan-wij <marvin@42.fr>                      +#+                     */
+/*                                                   +#+                      */
 /*   Created: 2024/05/07 12:10:05 by fvan-wij      #+#    #+#                 */
-/*   Updated: 2024/05/07 12:10:06 by fvan-wij      ########   odam.nl         */
+/*   Updated: 2024/05/07 16:02:28 by dritsema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_map	*alloc_map(void)
 {
 	t_map	*mapdata;
 
-	mapdata = malloc(sizeof(t_map));
+	mapdata = ft_calloc(1, sizeof(t_map));
 	ft_bzero(mapdata->walls.w_path, 256 * sizeof(char *));
 	ft_bzero(mapdata->walls.w_tex, 256 * sizeof(mlx_texture_t *));
 	mapdata->cbd_map = NULL;
