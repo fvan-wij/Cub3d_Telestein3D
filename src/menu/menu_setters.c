@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       ::::::::             */
-/*   menu_setters.c                                    :+:    :+:             */
-/*                                                    +:+                     */
-/*   By: fvan-wij <marvin@42.fr>                     +#+                      */
-/*                                                  +#+                       */
+/*                                                        ::::::::            */
+/*   menu_setters.c                                     :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: fvan-wij <marvin@42.fr>                      +#+                     */
+/*                                                   +#+                      */
 /*   Created: 2024/05/07 12:09:24 by fvan-wij      #+#    #+#                 */
-/*   Updated: 2024/05/07 12:09:25 by fvan-wij      ########   odam.nl         */
+/*   Updated: 2024/05/07 14:06:17 by dritsema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	set_menu_state(t_menu *menu, t_menu_state state)
 		enable_game_over_screen(menu);
 	if (state == GAME_WON)
 		enable_game_won_screen(menu);
+	if (state == GAME_EXIT)
+		menu->state = GAME_EXIT;
 }
 
 void	set_main_cursor_positions(t_menu *menu)

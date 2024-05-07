@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       ::::::::             */
-/*   init_audio.c                                      :+:    :+:             */
-/*                                                    +:+                     */
-/*   By: fvan-wij <marvin@42.fr>                     +#+                      */
-/*                                                  +#+                       */
+/*                                                        ::::::::            */
+/*   init_audio.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: fvan-wij <marvin@42.fr>                      +#+                     */
+/*                                                   +#+                      */
 /*   Created: 2024/05/07 12:07:23 by fvan-wij      #+#    #+#                 */
-/*   Updated: 2024/05/07 12:07:23 by fvan-wij      ########   odam.nl         */
+/*   Updated: 2024/05/07 14:28:12 by dritsema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,15 @@ void	cbd_uninit_audio(t_audio *audio)
 	int	i;
 
 	i = 0;
+	ma_engine_stop(audio->engine);
 	while (i < SND_SIZE)
 	{
 		ma_sound_uninit(audio->sound[i]);
+		free(audio->sound[i]);
 		i++;
 	}
 	ma_engine_uninit(audio->engine);
+	free(audio->engine);
 	free(audio);
 }
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       ::::::::             */
-/*   cbd_loop.c                                        :+:    :+:             */
-/*                                                    +:+                     */
-/*   By: fvan-wij <marvin@42.fr>                     +#+                      */
-/*                                                  +#+                       */
+/*                                                        ::::::::            */
+/*   cbd_loop.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: fvan-wij <marvin@42.fr>                      +#+                     */
+/*                                                   +#+                      */
 /*   Created: 2024/05/07 12:13:09 by fvan-wij      #+#    #+#                 */
-/*   Updated: 2024/05/07 12:13:09 by fvan-wij      ########   odam.nl         */
+/*   Updated: 2024/05/07 14:03:36 by dritsema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,11 @@ void	cbd_loop(void *param)
 		else
 			loop_game(cbd, audio);
 	}
-	if (cbd->menudata->state == MAP_SELECT)
+	else if (cbd->menudata->state == MAP_SELECT)
 		display_preview(cbd->menudata, cbd->mapdata);
 	else if (cbd->menudata->state == MAP_LOAD)
 		change_map(cbd);
+	else if (cbd->menudata->state == GAME_EXIT)
+		mlx_close_window(cbd->mlx);
 	update_menu_audio(audio, cbd);
 }

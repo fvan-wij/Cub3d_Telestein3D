@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       ::::::::             */
-/*   cleanup.c                                         :+:    :+:             */
-/*                                                    +:+                     */
-/*   By: fvan-wij <marvin@42.fr>                     +#+                      */
-/*                                                  +#+                       */
+/*                                                        ::::::::            */
+/*   cleanup.c                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: fvan-wij <marvin@42.fr>                      +#+                     */
+/*                                                   +#+                      */
 /*   Created: 2024/05/07 12:12:39 by fvan-wij      #+#    #+#                 */
-/*   Updated: 2024/05/07 12:12:40 by fvan-wij      ########   odam.nl         */
+/*   Updated: 2024/05/07 15:31:03 by dritsema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,6 @@
 #include <libft.h>
 #include <MLX42.h>
 #include <stdlib.h>
-
-void	free_node(t_entity *node)
-{
-	if (node->destinations)
-		free(node->destinations);
-	if (node->texture)
-		free(node->texture);
-	free(node);
-}
-
-void	free_jump_table(t_map *map)
-{
-	int	i;
-
-	i = 0;
-	while (i < 255)
-	{
-		if (map->walls.w_path[i])
-			free(map->walls.w_path[i]);
-		i++;
-	}
-	i = 0;
-	while (i < 255)
-	{
-		if (map->walls.w_tex[i])
-			mlx_delete_texture(map->walls.w_tex[i]);
-		i++;
-	}
-}
 
 void	cleanup_map(t_map *map)
 {
@@ -57,7 +28,7 @@ void	cleanup_map(t_map *map)
 	if (map->entities)
 	{
 		curr = map->entities;
-		while (curr->next != NULL)
+		while (curr != NULL)
 		{
 			temp = curr;
 			curr = curr->next;
@@ -67,9 +38,39 @@ void	cleanup_map(t_map *map)
 	free(map);
 }
 
-void	cleanup_menu(t_menu *menu)
+void	cleanup_player(t_player player, t_app *app)
 {
-	free(menu);
+	size_t	i;
+
+	i = 0;
+	if (player.inv)
+	{
+		while (i < WPN_SIZE)
+		{
+			mlx_delete_image(app->mlx, player.inv->wpn[i].img);
+			free(player.inv->wpn[i].use_anim);
+			i++;
+		}
+	}
+	if (player.inv)
+		free(player.inv);
+}
+
+void	cleanup_render(t_render *render, mlx_t *mlx)
+{
+	size_t	i;
+
+	mlx_delete_image(mlx, render->img);
+	mlx_delete_image(mlx, render->sprite_img);
+	mlx_delete_image(mlx, render->po_head);
+	i = 0;
+	while (i < HUD_SIZE)
+	{
+		mlx_delete_image(mlx, render->hud->img[i]);
+		i++;
+	}
+	free(render->hud);
+	free(render->zbuffer);
 }
 
 void	cleanup(t_app *app)
@@ -77,6 +78,8 @@ void	cleanup(t_app *app)
 	if (app->mapdata)
 		cleanup_map(app->mapdata);
 	if (app->menudata)
-		cleanup_menu(app->menudata);
-	free(app->render.zbuffer);
+		free(app->menudata);
+	cleanup_render(&app->render, app->mlx);
+	cleanup_player(app->playerdata, app);
+	mlx_terminate(app->mlx);
 }

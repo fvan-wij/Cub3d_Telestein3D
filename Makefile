@@ -71,6 +71,7 @@ SRCS	:= \
 		   render/render_utility.c	\
 		   utility/printing.c	\
 		   utility/cleanup.c	\
+		   utility/free_utils.c	\
 		   input/input.c		\
 		   input/combat.c		\
 		   input/game_input.c	\
@@ -87,7 +88,7 @@ OBJS	:= $(addprefix $(OBJDIR)/,$(SRCS:.c=.o))
 SRCS	:= $(addprefix $(SRCDIR)/,$(SRCS))
 
 ifdef DEBUG
-	CC += -g -fsanitize=address
+	CC += -g
 	LIBFT_DEBUG += DEBUG=1
 endif
 

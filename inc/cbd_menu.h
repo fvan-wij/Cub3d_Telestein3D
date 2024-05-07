@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       ::::::::             */
-/*   cbd_menu.h                                        :+:    :+:             */
-/*                                                    +:+                     */
-/*   By: fvan-wij <marvin@42.fr>                     +#+                      */
-/*                                                  +#+                       */
+/*                                                        ::::::::            */
+/*   cbd_menu.h                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: fvan-wij <marvin@42.fr>                      +#+                     */
+/*                                                   +#+                      */
 /*   Created: 2024/05/07 12:19:44 by fvan-wij      #+#    #+#                 */
-/*   Updated: 2024/05/07 12:23:58 by fvan-wij      ########   odam.nl         */
+/*   Updated: 2024/05/07 14:00:42 by dritsema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef enum e_menu_state
 	MAP_LOAD,
 	GAME_OVER,
 	GAME_WON,
+	GAME_EXIT,
 }	t_menu_state;
 
 typedef enum e_m_main_items

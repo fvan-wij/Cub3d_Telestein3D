@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       ::::::::             */
-/*   menu_navigation.c                                 :+:    :+:             */
-/*                                                    +:+                     */
-/*   By: fvan-wij <marvin@42.fr>                     +#+                      */
-/*                                                  +#+                       */
+/*                                                        ::::::::            */
+/*   menu_navigation.c                                  :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: fvan-wij <marvin@42.fr>                      +#+                     */
+/*                                                   +#+                      */
 /*   Created: 2024/05/07 12:09:09 by fvan-wij      #+#    #+#                 */
-/*   Updated: 2024/05/07 12:09:10 by fvan-wij      ########   odam.nl         */
+/*   Updated: 2024/05/07 15:42:46 by dritsema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ void	menu_enter(t_menu *menu)
 		if (menu->main_menu.current_item == BTN_PLAY)
 			set_menu_state(menu, OFF);
 		if (menu->main_menu.current_item == BTN_MAP_SELECT)
-			set_menu_state(menu, MAP_SELECT);
+			printf("Map select is disabled in Demo.\n");
 		if (menu->main_menu.current_item == BTN_EXIT)
-			exit(0);
+			set_menu_state(menu, GAME_EXIT);
 	}
 	else if (menu->state == MAP_SELECT)
 	{

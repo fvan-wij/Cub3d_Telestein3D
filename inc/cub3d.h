@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   cub3d.h                                           :+:    :+:             */
+/*   cub3d.h                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dritsema <dritsema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/22 15:29:29 by dritsema      #+#    #+#                 */
-/*   Updated: 2024/05/07 12:45:58 by fvan-wij      ########   odam.nl         */
+/*   Updated: 2024/05/07 15:31:34 by dritsema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ void		print_2d(char **str);
 void		print_debug_info(t_app *cub3d);
 void		cleanup(t_app *app);
 void		cleanup_map(t_map *map);
+void		free_jump_table(t_map *map);
+void		free_node(t_entity *node);
 
 // 			Rendering
 void		cbd_render(t_app *cbd);
