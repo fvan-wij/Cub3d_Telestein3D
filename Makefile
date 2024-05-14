@@ -1,6 +1,5 @@
 NAME	:= cub3d
 CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -O2
-# CFLAGS	:= -Wextra -Wall -Wunreachable-code -O2
 LIBMLX	:= ./lib/MLX42
 LIBFT	:= ./lib/libft
 MAUDIO	:= ./lib/miniaudio

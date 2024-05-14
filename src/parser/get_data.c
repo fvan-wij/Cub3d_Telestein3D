@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_data.c                                         :+:    :+:            */
+/*   get_data.c                                        :+:    :+:             */
 /*                                                     +:+                    */
 /*   By: fvan-wij <marvin@42.fr>                      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/07 12:09:55 by fvan-wij      #+#    #+#                 */
-/*   Updated: 2024/05/07 19:13:25 by dritsema      ########   odam.nl         */
+/*   Updated: 2024/05/14 13:21:24 by fvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ t_map	*get_map_data_mandatory(int fd, t_valid *is, char *line)
 		line = get_next_line(fd);
 	}
 	close(fd);
-	get_mlx_tex(mapdata, TEX_SIZE);
+	if (!get_mlx_tex(mapdata, TEX_SIZE))
+		return (cleanup_map(mapdata), NULL);
 	if (!mapdata->raw_data)
 		return (cbd_error(ERR_INVALID_MAP), cleanup_map(mapdata), NULL);
 	return (mapdata);
