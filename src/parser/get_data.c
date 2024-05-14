@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_data.c                                        :+:    :+:             */
+/*   get_data.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fvan-wij <marvin@42.fr>                      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/07 12:09:55 by fvan-wij      #+#    #+#                 */
-/*   Updated: 2024/05/14 13:21:24 by fvan-wij      ########   odam.nl         */
+/*   Updated: 2024/05/14 15:56:34 by dritsema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,35 +17,36 @@
 #include <unistd.h>
 #include <cub3d.h>
 
+static bool	retrieve_element(char *key, char *value, t_map *mapdata)
+{
+	if (ft_strncmp(key, "NO", 2) == 0 && !mapdata->walls.w_path[NO])
+		mapdata->walls.w_path[NO] = get_texpath(value);
+	else if (ft_strncmp(key, "SO", 2) == 0 && !mapdata->walls.w_path[SO])
+		mapdata->walls.w_path[SO] = get_texpath(value);
+	else if (ft_strncmp(key, "WE", 2) == 0 && !mapdata->walls.w_path[WE])
+		mapdata->walls.w_path[WE] = get_texpath(value);
+	else if (ft_strncmp(key, "EA", 2) == 0 && !mapdata->walls.w_path[EA])
+		mapdata->walls.w_path[EA] = get_texpath(value);
+	else if (ft_strncmp(key, "F ", 2) == 0)
+		mapdata->floor = get_col(value);
+	else if (ft_strncmp(key, "C ", 2) == 0)
+		mapdata->ceiling = get_col(value);
+	return (true);
+}
+
 /*
 ** Checks the given line and stores texture path or color in mapdata
 **
 ** Needs:
 **	a line of the .cub file
 */
-static void	retrieve_element(char *line, t_map *mapdata)
+static void	retrieve_elements(char *line, t_map *mapdata)
 {
-	size_t	i;
 	char	**temp;
 
 	temp = ft_split(line, ' ');
-	i = 0;
-	while (temp[i])
-	{
-		if (ft_strncmp(temp[i], "NO", 2) == 0 && temp[i + 1])
-			mapdata->walls.w_path[NO] = get_texpath(temp[i + 1]);
-		if (ft_strncmp(temp[i], "SO", 2) == 0 && temp[i + 1])
-			mapdata->walls.w_path[SO] = get_texpath(temp[i + 1]);
-		if (ft_strncmp(temp[i], "WE", 2) == 0 && temp[i + 1])
-			mapdata->walls.w_path[WE] = get_texpath(temp[i + 1]);
-		if (ft_strncmp(temp[i], "EA", 2) == 0 && temp[i + 1])
-			mapdata->walls.w_path[EA] = get_texpath(temp[i + 1]);
-		if (ft_strncmp(temp[i], "F", ft_strlen(temp[i])) == 0 && temp[i + 1])
-			mapdata->floor = get_col(temp[i + 1]);
-		if (ft_strncmp(temp[i], "C", ft_strlen(temp[i])) == 0 && temp[i + 1])
-			mapdata->ceiling = get_col(temp[i + 1]);
-		i++;
-	}
+	if (retrieve_element(temp[0], temp[1], mapdata) == false)
+		return (ft_del_2d(temp));
 	ft_del_2d(temp);
 }
 
@@ -62,7 +63,7 @@ t_map	*get_map_data_mandatory(int fd, t_valid *is, char *line)
 			return (cbd_error(ERR_INVALID_MAP), free(line),
 				cleanup_map(mapdata), NULL);
 		else if (is_tex(line, is) || is_col(line, is))
-			retrieve_element(line, mapdata);
+			retrieve_elements(line, mapdata);
 		else if (is_content(line) && is_last_element(is))
 			mapdata->raw_data = ft_add_2d(mapdata->raw_data, line);
 		free(line);

@@ -1,4 +1,4 @@
-NO ./data/textures/north_tox.png
+NO ./data/textures/north_tex.png
 SO ./data/textures/south_tex.png
 WE ./data/textures/west_tex.png
 EA ./data/textures/east_tex.png
