@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   entity.c                                           :+:    :+:            */
+/*   entity.c                                          :+:    :+:             */
 /*                                                     +:+                    */
 /*   By: dritsema <dritsema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/06 16:24:50 by dritsema      #+#    #+#                 */
-/*   Updated: 2024/05/06 16:31:32 by dritsema      ########   odam.nl         */
+/*   Updated: 2024/05/14 12:51:42 by fvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_render_entity	init_entity_render(
 	re.transform_y = re.inv_det
 		* (-p->plane.y * re.ent_x + p->plane.x * re.ent_y);
 	re.sprite_screen_x = (int)
-		((WIDTH / 2) * (1.0 + re.transform_x / re.transform_y));
+		(((float) WIDTH / 2) * (1.0 + re.transform_x / re.transform_y));
 	re.sprite_height = abs((int)(HEIGHT / (re.transform_y)));
 	re.draw_start_y = -re.sprite_height / 2 + HEIGHT / 2 + render->y_offset;
 	re.draw_end_y = re.sprite_height / 2 + HEIGHT / 2 + render->y_offset;
@@ -75,7 +75,8 @@ void	render_entity(t_render *render, t_entity *ent, t_player *player)
 	rent = init_entity_render(render, ent, player);
 	if (ent->enabled == false)
 		return ;
-	ent->distance = vec_distance(player->pos, ent->pos);
+	ent->distance = ((player->pos.x - ent->pos.x) * (player->pos.x - ent->pos.x)
+			+ (player->pos.y - ent->pos.y) * (player->pos.y - ent->pos.y));
 	if (ent->distance < 100.0)
 		ent->distance /= 100;
 	strip = rent.draw_start_x;
