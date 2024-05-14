@@ -6,7 +6,7 @@
 /*   By: dritsema <dritsema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/06 16:33:15 by dritsema      #+#    #+#                 */
-/*   Updated: 2024/05/06 16:33:15 by dritsema      ########   odam.nl         */
+/*   Updated: 2024/05/14 13:15:03 by dritsema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ static void	draw_walls_west_east(t_render render, int x,
 static void	draw_walls_north_south(t_render render, int x,
 	t_wall *wall, double dist)
 {
-	if (render.rays[x].dir.x > 0)
+	if (render.rays[x].dir.y > 0)
 		draw_wall_strip(render, x, wall->w_tex[NO], dist);
-	if (render.rays[x].dir.x < 0)
+	if (render.rays[x].dir.y < 0)
 		draw_wall_strip(render, x, wall->w_tex[SO], dist);
 }
 
